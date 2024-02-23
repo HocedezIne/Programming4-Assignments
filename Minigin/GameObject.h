@@ -26,10 +26,20 @@ namespace dae
 		void RemoveComponent() {};
 
 		template<typename T>
-		std::shared_ptr<T> GetComponent() {};
+		std::shared_ptr<T> GetComponent() 
+		{
+			auto it = m_Components.find(typeid(T).name());
+			if (it != m_Components.end())
+				return std::dynamic_pointer_cast<T>(it->second);
+
+			return nullptr;
+		};
 
 		template<typename T>
-		bool HasComponent() {};
+		bool HasComponent() 
+		{
+			return m_Components.find(typeid(T).name()) != m_Components.end();
+		};
 
 		//void SetTexture(const std::string& filename);
 		//void SetPosition(float x, float y);
