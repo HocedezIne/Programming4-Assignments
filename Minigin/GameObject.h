@@ -6,9 +6,6 @@
 
 namespace dae
 {
-	class Texture2D;
-
-	// todo: this should become final.
 	class GameObject final
 	{
 	public:
@@ -44,9 +41,6 @@ namespace dae
 			return m_Components.find(typeid(T).name()) != m_Components.end();
 		};
 
-		//void SetTexture(const std::string& filename);
-		//void SetPosition(float x, float y);
-
 		GameObject() = default;
 		virtual ~GameObject();
 		GameObject(const GameObject& other) = delete;
@@ -56,9 +50,5 @@ namespace dae
 
 	private:
 		std::unordered_map<std::string, std::shared_ptr<Component>> m_Components;
-
-		//Transform m_transform{};
-		// todo: mmm, every gameobject has a texture? Is that correct?
-		//std::shared_ptr<Texture2D> m_texture{};
 	};
 }
