@@ -23,7 +23,10 @@ namespace dae
 		};
 		
 		template<typename T>
-		void RemoveComponent() {};
+		void RemoveComponent() 
+		{
+			m_Components.erase(typeid(T).name());
+		};
 
 		template<typename T>
 		std::shared_ptr<T> GetComponent() 
