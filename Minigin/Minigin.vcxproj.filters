@@ -60,6 +60,9 @@
     <ClInclude Include="TextComponent.h">
       <Filter>Components\Subclasses</Filter>
     </ClInclude>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>Components\Subclasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -96,6 +99,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextComponent.cpp">
+      <Filter>Components\Subclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureComponent.cpp">
       <Filter>Components\Subclasses</Filter>
     </ClCompile>
   </ItemGroup>
