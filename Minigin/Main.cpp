@@ -12,6 +12,7 @@
 #include "ResourceManager.h"
 #include "GameObject.h"
 #include "TextComponent.h"
+#include "FPSComponent.h"
 #include "TextureComponent.h"
 #include "Scene.h"
 
@@ -36,6 +37,14 @@ void load()
 	go = std::make_shared<dae::GameObject>();
 	go->AddComponent<dae::TextComponent>(to);
 	scene.Add(go);
+
+	auto fps = std::make_shared<dae::FPSComponent>(font);
+	go = std::make_shared<dae::GameObject>();
+	go->AddComponent<dae::FPSComponent>(fps);
+	scene.Add(go);
+
+	auto test = new dae::GameObject();
+	test->HasComponent<dae::FPSComponent>();
 
 	// Testing other GameObject functions
 	//if (go->HasComponent<dae::TextComponent>())

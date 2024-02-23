@@ -13,83 +13,74 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Components">
+    <Filter Include="ManagerClasses">
+      <UniqueIdentifier>{28410f93-adb7-4c3c-a2bc-bd2344357218}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ComponentClasses">
       <UniqueIdentifier>{84c2a3aa-280c-47c2-b8c1-4c53aff7b4ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components\Subclasses">
+    <Filter Include="ComponentClasses\Subclasses">
       <UniqueIdentifier>{40d2305f-5bda-44e6-8cb9-cb733ca25537}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HelperClasses">
+      <UniqueIdentifier>{bccf55a2-8e0d-4ae4-839e-096821ea678f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Singleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Minigin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Components</Filter>
+      <Filter>ComponentClasses</Filter>
     </ClInclude>
     <ClInclude Include="TextComponent.h">
-      <Filter>Components\Subclasses</Filter>
+      <Filter>ComponentClasses\Subclasses</Filter>
     </ClInclude>
     <ClInclude Include="TextureComponent.h">
-      <Filter>Components\Subclasses</Filter>
+      <Filter>ComponentClasses\Subclasses</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>ManagerClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>ManagerClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>ManagerClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>HelperClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>HelperClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>HelperClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSComponent.h">
+      <Filter>ComponentClasses\Subclasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>HelperClasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
@@ -99,10 +90,31 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextComponent.cpp">
-      <Filter>Components\Subclasses</Filter>
+      <Filter>ComponentClasses\Subclasses</Filter>
     </ClCompile>
     <ClCompile Include="TextureComponent.cpp">
-      <Filter>Components\Subclasses</Filter>
+      <Filter>ComponentClasses\Subclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>ManagerClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>ManagerClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>ManagerClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>HelperClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>HelperClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>HelperClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSComponent.cpp">
+      <Filter>ComponentClasses\Subclasses</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

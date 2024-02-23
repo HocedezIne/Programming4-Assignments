@@ -8,7 +8,7 @@ namespace dae
 {
 	class Font;
 	class Texture2D;
-	class TextComponent final : public Component, public IUpdatable, public IRenderable
+	class TextComponent : public Component, public IUpdatable, public IRenderable
 	{
 	public:
 		void Update(const float deltaTime) override;
