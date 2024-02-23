@@ -8,10 +8,10 @@ namespace dae
 {
 	class Font;
 	class Texture2D;
-	class TextObject final : public GameObject
+	class TextObject final : public Component, public IUpdatable, public IRenderable
 	{
 	public:
-		void Update() override;
+		void Update(const float deltaTime) override;
 		void Render() const override;
 
 		void SetText(const std::string& text);
