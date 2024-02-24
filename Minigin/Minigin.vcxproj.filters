@@ -63,14 +63,14 @@
     <ClInclude Include="Texture2D.h">
       <Filter>HelperClasses</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>HelperClasses</Filter>
-    </ClInclude>
     <ClInclude Include="FPSComponent.h">
       <Filter>ComponentClasses\Subclasses</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>HelperClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>ComponentClasses\Subclasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +104,6 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>ManagerClasses</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>HelperClasses</Filter>
-    </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>HelperClasses</Filter>
     </ClCompile>
@@ -114,6 +111,9 @@
       <Filter>HelperClasses</Filter>
     </ClCompile>
     <ClCompile Include="FPSComponent.cpp">
+      <Filter>ComponentClasses\Subclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
       <Filter>ComponentClasses\Subclasses</Filter>
     </ClCompile>
   </ItemGroup>

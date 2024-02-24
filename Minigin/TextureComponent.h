@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 #include "Component.h"
-#include "Transform.h"
+#include "TransformComponent.h"
 #include "Texture2D.h"
 
 namespace dae
@@ -12,9 +12,7 @@ namespace dae
 	public:
 		void Render() const override;
 
-		void SetPosition(const float x, const float y);
-
-		TextureComponent(const std::string& fileName);
+		TextureComponent(std::shared_ptr<GameObject> pOwner, const std::string& fileName);
 		virtual ~TextureComponent() = default;
 		TextureComponent(const TextureComponent& other) = delete;
 		TextureComponent(TextureComponent&& other) = delete;
@@ -22,7 +20,6 @@ namespace dae
 		TextureComponent& operator=(TextureComponent&& other) = delete;
 
 	private:
-		Transform m_Transform{};
 		std::shared_ptr<Texture2D> m_Texture;
 	};
 }

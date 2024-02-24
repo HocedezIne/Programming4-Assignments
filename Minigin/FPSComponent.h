@@ -8,7 +8,7 @@ namespace dae
 	public:
 		void Update(const float deltaTime) override;
 
-		FPSComponent(std::shared_ptr<Font> font);
+		FPSComponent(std::shared_ptr<GameObject> pOwner, std::shared_ptr<Font> font) : TextComponent(pOwner, {}, font) {};
 		virtual ~FPSComponent() = default;
 		FPSComponent(const FPSComponent& other) = delete;
 		FPSComponent(FPSComponent&& other) = delete;

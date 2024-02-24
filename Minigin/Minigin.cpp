@@ -85,12 +85,8 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 
-	// todo: this update loop could use some work.
-	const long long timePerFrame{ 1666666LL };
-	//float fixedTimeStep{};
-
+	const float targetFrameTime{ 1.f/144.f };
 	auto previousTime = std::chrono::high_resolution_clock::now();
-	float lag{};
 
 	bool doContinue = true;
 	while (doContinue)
@@ -98,21 +94,12 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		const auto currentTime = std::chrono::high_resolution_clock::now();
 		const float deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
 		previousTime = currentTime;
-		lag += deltaTime;
 
 		doContinue = input.ProcessInput();
-
-		/*while (lag >= timePerFrame)
-		{
-			fixed_update(fixedTimeStep);
-			lag -= timePerFrame;
-		}*/
-
 		sceneManager.Update(deltaTime);
 		renderer.Render();
 
-		const auto sleepTime = currentTime + std::chrono::nanoseconds(timePerFrame) - std::chrono::high_resolution_clock::now();
-
+		const auto sleepTime = (currentTime + std::chrono::milliseconds(static_cast<long long>(targetFrameTime*1000)) - std::chrono::high_resolution_clock::now());
 		std::this_thread::sleep_for(sleepTime);
 	}
 }

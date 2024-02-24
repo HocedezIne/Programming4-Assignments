@@ -11,6 +11,7 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "GameObject.h"
+#include "Component.h"
 #include "TextComponent.h"
 #include "FPSComponent.h"
 #include "TextureComponent.h"
@@ -20,31 +21,34 @@ void load()
 {
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 
+	//try
+	//{
 	auto go = std::make_shared<dae::GameObject>();
-	auto bg = std::make_shared<dae::TextureComponent>("background.tga");
-	go->AddComponent<dae::TextureComponent>(bg);
+	go->AddComponent<dae::TransformComponent>(std::make_shared<dae::TransformComponent>(go));
+	go->AddComponent<dae::TextureComponent>(std::make_shared<dae::TextureComponent>(go, "background.tga"));
 	scene.Add(go);
 
 	go = std::make_shared<dae::GameObject>();
-	auto logo = std::make_shared<dae::TextureComponent>("logo.tga");
-	logo->SetPosition(216, 180);
-	go->AddComponent<dae::TextureComponent>(logo);
+	go->AddComponent<dae::TransformComponent>(std::make_shared<dae::TransformComponent>(go, 216.f, 180.f));
+	go->AddComponent<dae::TextureComponent>(std::make_shared<dae::TextureComponent>(go, "logo.tga"));
 	scene.Add(go);
 
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto to = std::make_shared<dae::TextComponent>("Programming 4 Assignment", font);
-	to->SetPosition(80, 20);
+	//auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	//auto to = std::make_shared<dae::TextComponent>(go, "Programming 4 Assignment", font);
+	//to->SetPosition(80, 20);
 	go = std::make_shared<dae::GameObject>();
-	go->AddComponent<dae::TextComponent>(to);
+	//go->AddComponent<dae::TextComponent>(to);
 	scene.Add(go);
 
-	auto fps = std::make_shared<dae::FPSComponent>(font);
+	//auto fps = std::make_shared<dae::FPSComponent>(go);
 	go = std::make_shared<dae::GameObject>();
-	go->AddComponent<dae::FPSComponent>(fps);
+	//go->AddComponent<dae::FPSComponent>(fps);
 	scene.Add(go);
-
-	auto test = new dae::GameObject();
-	test->HasComponent<dae::FPSComponent>();
+	//}
+	//catch (const dae::MissingComponentDependency& ex)
+	//{
+	//	assert(ex.what());
+	//}
 
 	// Testing other GameObject functions
 	//if (go->HasComponent<dae::TextComponent>())

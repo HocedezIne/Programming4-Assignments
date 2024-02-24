@@ -1,11 +1,11 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
-// #include "Transform.h"
-#include "Component.h"
 
 namespace dae
 {
+	class Component;
+
 	class GameObject final
 	{
 	public:

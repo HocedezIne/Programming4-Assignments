@@ -1,22 +1,20 @@
 #include "TextureComponent.h"
 #include "ResourceManager.h"
 #include "Renderer.h"
+#include "TransformComponent.h"
 
 void dae::TextureComponent::Render() const
 {
 	if (m_Texture != nullptr)
 	{
-		const auto& pos = m_Transform.GetPosition();
+		const auto pos = m_pOwner->GetComponent<TransformComponent>()->GetPosition();
 		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
 	}
 }
 
-void dae::TextureComponent::SetPosition(const float x, const float y)
+dae::TextureComponent::TextureComponent(std::shared_ptr<GameObject> pOwner, const std::string& fileName) : Component(pOwner)
 {
-	m_Transform.SetPosition(x, y, 0.0f);
-}
+	Component::DependencyCheck<TransformComponent>(this);
 
-dae::TextureComponent::TextureComponent(const std::string& fileName)
-{
 	m_Texture = ResourceManager::GetInstance().LoadTexture(fileName);
 }

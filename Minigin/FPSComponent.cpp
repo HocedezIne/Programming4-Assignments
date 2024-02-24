@@ -1,8 +1,6 @@
 #include "FPSComponent.h"
-
-dae::FPSComponent::FPSComponent(std::shared_ptr<Font> font) :
-	TextComponent("", font)
-{}
+#include <iomanip>
+#include <sstream>
 
 void dae::FPSComponent::Update(const float deltaTime)
 {
