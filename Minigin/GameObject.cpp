@@ -8,22 +8,22 @@ dae::GameObject::~GameObject() = default;
 
 void dae::GameObject::Update(const float deltaTime)
 {
-	for (const auto& pair : m_Components)
+	for (const auto& comp: m_Components)
 	{
-		if (auto comp = std::dynamic_pointer_cast<IUpdatable>(pair.second))
+		if (auto ucomp = std::dynamic_pointer_cast<IUpdatable>(comp))
 		{
-			comp->Update(deltaTime);
+			ucomp->Update(deltaTime);
 		}
 	}
 }
 
 void dae::GameObject::Render() const
 {
-	for (const auto& pair : m_Components)
+	for (const auto& comp : m_Components)
 	{
-		if (auto comp = std::dynamic_pointer_cast<IRenderable>(pair.second))
+		if (auto rcomp = std::dynamic_pointer_cast<IRenderable>(comp))
 		{
-			comp->Render();
+			rcomp->Render();
 		}
 	}
 }

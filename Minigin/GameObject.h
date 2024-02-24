@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <unordered_map>
+#include <vector>
 
 namespace dae
 {
@@ -16,21 +16,25 @@ namespace dae
 		void AddComponent(std::shared_ptr<T> comp)
 		{
 			static_assert(std::is_base_of<Component, T>::value, "Item must derrive from Component class");
-			m_Components[typeid(T).name()] = comp;
+			m_Components.push_back(std::move(comp));
 		};
 		
 		template<typename T>
 		void RemoveComponent() 
 		{
-			m_Components.erase(typeid(T).name());
+			m_Components.erase(std::remove(m_Components.begin(), m_Components.end(), T), m_Components.end());
 		};
 
 		template<typename T>
 		std::shared_ptr<T> GetComponent() 
 		{
-			auto it = m_Components.find(typeid(T).name());
+			auto it = std::find_if(m_Components.begin(), m_Components.end(),
+				[typeName = typeid(T).name()](const auto& ptr) {
+					return ptr && typeid(*ptr) == typeid(T);
+				});
+
 			if (it != m_Components.end())
-				return std::dynamic_pointer_cast<T>(it->second);
+				return std::dynamic_pointer_cast<T>(*it);
 
 			return nullptr;
 		};
@@ -38,7 +42,11 @@ namespace dae
 		template<typename T>
 		bool HasComponent() 
 		{
-			return m_Components.find(typeid(T).name()) != m_Components.end();
+			auto it = std::find_if(m_Components.begin(), m_Components.end(),
+				[typeName = typeid(T).name()](const auto& ptr) {
+					return ptr && typeid(*ptr) == typeid(T);
+				});
+			return it != m_Components.end();
 		};
 
 		GameObject() = default;
@@ -49,6 +57,6 @@ namespace dae
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
-		std::unordered_map<std::string, std::shared_ptr<Component>> m_Components;
+		std::vector<std::shared_ptr<Component>> m_Components;
 	};
 }

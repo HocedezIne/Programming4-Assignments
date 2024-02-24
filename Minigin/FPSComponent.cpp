@@ -10,7 +10,7 @@ void dae::FPSComponent::Update(const float deltaTime)
 	{
 		std::ostringstream fpsString;
 		fpsString << std::fixed << std::setprecision(1) << (m_FrameCount / m_TotalTime) << " FPS";
-		m_pOwner->GetComponent<TextComponent>()->SetText(fpsString.str());
+		m_pOwner.lock()->GetComponent<TextComponent>()->SetText(fpsString.str());
 
 		m_FrameCount = 0;
 		m_TotalTime = 0.f;

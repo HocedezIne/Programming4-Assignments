@@ -13,7 +13,7 @@ namespace dae {
 
 	class Component {
 	public:
-		Component(std::shared_ptr<GameObject> pOwner) { m_pOwner = pOwner; };
+		Component(std::weak_ptr<GameObject> pOwner) { m_pOwner = pOwner; };
 		virtual ~Component() = default;
 
 		Component(const Component& other) = delete;
@@ -25,7 +25,7 @@ namespace dae {
 		template<typename Target, typename Caller>
 		void DependencyCheck(Caller)
 		{
-			if (!m_pOwner->HasComponent<Target>())
+			if (!m_pOwner.lock()->HasComponent<Target>())
 			{
 				std::string msg{ typeid(Caller).name() };
 				msg += " cannot be added on GameObjects without a ";
@@ -35,7 +35,7 @@ namespace dae {
 		}
 
 
-		std::shared_ptr<GameObject> m_pOwner;
+		std::weak_ptr<GameObject> m_pOwner;
 	};
 
 	// ------------------------------------------------
