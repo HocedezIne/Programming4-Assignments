@@ -53,15 +53,14 @@ void load()
 	//}
 
 	// Testing other GameObject functions
-	//if (go->HasComponent<dae::TextComponent>())
-	//{
-	//	auto tc = go->GetComponent<dae::TextComponent>();
-	//	if (tc)
-	//	{
-	//		tc->SetText("I was found");
-	//		go->RemoveComponent<dae::TextComponent>();
-	//	}
-	//}
+	if (go->HasComponent<dae::FPSComponent>())
+	{
+		auto tc = go->GetComponent<dae::FPSComponent>();
+		if (tc)
+		{
+			go->RemoveComponent<dae::FPSComponent>(tc);
+		}
+	}
 
 }
 

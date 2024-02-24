@@ -20,9 +20,9 @@ namespace dae
 		};
 		
 		template<typename T>
-		void RemoveComponent() 
+		void RemoveComponent(std::shared_ptr<T> comp) 
 		{
-			m_Components.erase(std::remove(m_Components.begin(), m_Components.end(), T), m_Components.end());
+			m_Components.erase(std::remove(m_Components.begin(), m_Components.end(), comp), m_Components.end());
 		};
 
 		template<typename T>
