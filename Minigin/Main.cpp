@@ -17,12 +17,14 @@
 #include "TextureComponent.h"
 #include "Scene.h"
 
+#include <iostream>
+
 void load()
 {
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 
-	//try
-	//{
+	try
+	{
 	auto go = std::make_shared<dae::GameObject>();
 	go->AddComponent<dae::TransformComponent>(std::make_shared<dae::TransformComponent>(go));
 	go->AddComponent<dae::TextureComponent>(std::make_shared<dae::TextureComponent>(go, "background.tga"));
@@ -46,21 +48,21 @@ void load()
 	go->AddComponent<dae::TextComponent>(std::make_shared<dae::TextComponent>(go, "0 FPS", font));
 	go->AddComponent<dae::FPSComponent>(std::make_shared<dae::FPSComponent>(go));
 	scene.Add(go);
-	//}
-	//catch (const dae::MissingComponentDependency& ex)
-	//{
-	//	assert(ex.what());
-	//}
+	}
+	catch (const dae::MissingComponentDependency& ex)
+	{
+		std::cerr << ex.what() << std::endl;
+	}
 
 	// Testing other GameObject functions
-	if (go->HasComponent<dae::FPSComponent>())
-	{
-		auto tc = go->GetComponent<dae::FPSComponent>();
-		if (tc)
-		{
-			go->RemoveComponent<dae::FPSComponent>(tc);
-		}
-	}
+	//if (go->HasComponent<dae::FPSComponent>())
+	//{
+	//	auto tc = go->GetComponent<dae::FPSComponent>();
+	//	if (tc)
+	//	{
+	//		go->RemoveComponent<dae::FPSComponent>(tc);
+	//	}
+	//}
 
 }
 
