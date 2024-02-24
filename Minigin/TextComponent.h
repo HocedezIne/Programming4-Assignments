@@ -8,14 +8,12 @@ namespace dae
 {
 	class Font;
 	class Texture2D;
-	class TextComponent : public Component, public IUpdatable, public IRenderable
+	class TextComponent : public Component, public IUpdatable
 	{
 	public:
 		void Update(const float deltaTime) override;
-		void Render() const override;
 
 		void SetText(const std::string& text);
-		void SetPosition(float x, float y);
 
 		TextComponent(std::shared_ptr<GameObject> pOwner, const std::string& text, std::shared_ptr<Font> font);
 		virtual ~TextComponent() = default;
@@ -27,8 +25,6 @@ namespace dae
 	private:
 		bool m_needsUpdate;
 		std::string m_text;
-		TransformComponent m_Transform{nullptr};
 		std::shared_ptr<Font> m_font;
-		std::shared_ptr<Texture2D> m_textTexture;
 	};
 }

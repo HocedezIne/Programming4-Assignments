@@ -1,14 +1,15 @@
 #pragma once
+#include "Component.h"
 #include "TextComponent.h"
 
 namespace dae
 {
-	class FPSComponent final : public TextComponent
+	class FPSComponent final : public Component, public IUpdatable
 	{
 	public:
 		void Update(const float deltaTime) override;
 
-		FPSComponent(std::shared_ptr<GameObject> pOwner, std::shared_ptr<Font> font) : TextComponent(pOwner, {}, font) {};
+		FPSComponent(std::shared_ptr<GameObject> pOwner);
 		virtual ~FPSComponent() = default;
 		FPSComponent(const FPSComponent& other) = delete;
 		FPSComponent(FPSComponent&& other) = delete;

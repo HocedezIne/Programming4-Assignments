@@ -12,7 +12,10 @@ namespace dae
 	public:
 		void Render() const override;
 
-		TextureComponent(std::shared_ptr<GameObject> pOwner, const std::string& fileName);
+		void SetTexture(const std::string& fileName);
+		void SetTexture(std::shared_ptr<Texture2D> texture);
+
+		TextureComponent(std::shared_ptr<GameObject> pOwner, const std::string& fileName = {});
 		virtual ~TextureComponent() = default;
 		TextureComponent(const TextureComponent& other) = delete;
 		TextureComponent(TextureComponent&& other) = delete;

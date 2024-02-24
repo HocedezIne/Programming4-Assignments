@@ -33,15 +33,21 @@ void load()
 	go->AddComponent<dae::TextureComponent>(std::make_shared<dae::TextureComponent>(go, "logo.tga"));
 	scene.Add(go);
 
-	//auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	//auto to = std::make_shared<dae::TextComponent>(go, "Programming 4 Assignment", font);
 	//to->SetPosition(80, 20);
 	go = std::make_shared<dae::GameObject>();
-	//go->AddComponent<dae::TextComponent>(to);
+	go->AddComponent<dae::TransformComponent>(std::make_shared<dae::TransformComponent>(go, 80.f, 20.f));
+	go->AddComponent<dae::TextureComponent>(std::make_shared<dae::TextureComponent>(go));
+	go->AddComponent<dae::TextComponent>(std::make_shared<dae::TextComponent>(go, "Programming 4 Assignment", font));
 	scene.Add(go);
 
 	//auto fps = std::make_shared<dae::FPSComponent>(go);
 	go = std::make_shared<dae::GameObject>();
+	go->AddComponent<dae::TransformComponent>(std::make_shared<dae::TransformComponent>(go));
+	go->AddComponent<dae::TextureComponent>(std::make_shared<dae::TextureComponent>(go));
+	go->AddComponent<dae::TextComponent>(std::make_shared<dae::TextComponent>(go, "0 FPS", font));
+	go->AddComponent<dae::FPSComponent>(std::make_shared<dae::FPSComponent>(go));
 	//go->AddComponent<dae::FPSComponent>(fps);
 	scene.Add(go);
 	//}

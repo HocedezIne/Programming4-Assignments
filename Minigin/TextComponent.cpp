@@ -3,11 +3,13 @@
 #include "TextComponent.h"
 #include "Renderer.h"
 #include "Font.h"
-#include "Texture2D.h"
+#include "TextureComponent.h"
 
 dae::TextComponent::TextComponent(std::shared_ptr<GameObject> pOwner, const std::string& text, std::shared_ptr<Font> font)
-	: Component(pOwner), m_needsUpdate(true), m_text(text), m_font(std::move(font)), m_textTexture(nullptr)
-{ }
+	: Component(pOwner), m_needsUpdate(true), m_text(text), m_font(std::move(font))
+{
+	Component::DependencyCheck<TextureComponent>(this);
+}
 
 void dae::TextComponent::Update(const float deltaTime)
 {
@@ -27,17 +29,8 @@ void dae::TextComponent::Update(const float deltaTime)
 			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 		}
 		SDL_FreeSurface(surf);
-		m_textTexture = std::make_shared<Texture2D>(texture);
+		m_pOwner->GetComponent<TextureComponent>()->SetTexture(std::make_shared<Texture2D>(texture));
 		m_needsUpdate = false;
-	}
-}
-
-void dae::TextComponent::Render() const
-{
-	if (m_textTexture != nullptr)
-	{
-		const auto& pos = m_Transform.GetPosition();
-		Renderer::GetInstance().RenderTexture(*m_textTexture, pos.x, pos.y);
 	}
 }
 
@@ -46,9 +39,4 @@ void dae::TextComponent::SetText(const std::string& text)
 {
 	m_text = text;
 	m_needsUpdate = true;
-}
-
-void dae::TextComponent::SetPosition(const float x, const float y)
-{
-	m_Transform.SetPosition(x, y, 0.0f);
 }
