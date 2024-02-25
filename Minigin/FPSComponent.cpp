@@ -4,7 +4,7 @@
 
 void dae::FPSComponent::Update(const float deltaTime)
 {
-	m_FrameCount++;
+	++m_FrameCount;
 	m_TotalTime += deltaTime;
 	if (m_TotalTime > 1.f)
 	{
