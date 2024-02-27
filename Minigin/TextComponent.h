@@ -4,7 +4,7 @@
 #include "TransformComponent.h"
 #include "Component.h"
 
-namespace dae
+namespace engine
 {
 	class Font;
 	class Texture2D;

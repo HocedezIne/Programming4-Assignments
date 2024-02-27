@@ -4,7 +4,7 @@
 #include <memory>
 #include "Singleton.h"
 
-namespace dae
+namespace engine
 {
 	class Scene;
 	class SceneManager final : public Singleton<SceneManager>
@@ -14,6 +14,7 @@ namespace dae
 
 		void Update(const float deltaTime);
 		void Render();
+		void ProcessDeletion();
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

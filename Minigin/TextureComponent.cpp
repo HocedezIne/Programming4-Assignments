@@ -3,7 +3,7 @@
 #include "Renderer.h"
 #include "TransformComponent.h"
 
-void dae::TextureComponent::Render() const
+void engine::TextureComponent::Render() const
 {
 	if (m_Texture != nullptr)
 	{
@@ -12,17 +12,17 @@ void dae::TextureComponent::Render() const
 	}
 }
 
-void dae::TextureComponent::SetTexture(const std::string& fileName)
+void engine::TextureComponent::SetTexture(const std::string& fileName)
 {
 	m_Texture = ResourceManager::GetInstance().LoadTexture(fileName);
 }
 
-void dae::TextureComponent::SetTexture(std::shared_ptr<Texture2D> texture)
+void engine::TextureComponent::SetTexture(std::shared_ptr<Texture2D> texture)
 {
 	m_Texture = texture;
 }
 
-dae::TextureComponent::TextureComponent(std::shared_ptr<GameObject> pOwner, const std::string& fileName) : Component(pOwner)
+engine::TextureComponent::TextureComponent(std::shared_ptr<GameObject> pOwner, const std::string& fileName) : Component(pOwner)
 {
 	Component::DependencyCheck<TransformComponent>(this);
 

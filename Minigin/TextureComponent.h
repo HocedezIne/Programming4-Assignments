@@ -5,7 +5,7 @@
 #include "TransformComponent.h"
 #include "Texture2D.h"
 
-namespace dae
+namespace engine
 {
 	class TextureComponent final : public Component, public IRenderable
 	{
@@ -16,7 +16,7 @@ namespace dae
 		void SetTexture(std::shared_ptr<Texture2D> texture);
 
 		TextureComponent(std::shared_ptr<GameObject> pOwner, const std::string& fileName = {});
-		virtual ~TextureComponent() = default;
+		~TextureComponent() = default;
 		TextureComponent(const TextureComponent& other) = delete;
 		TextureComponent(TextureComponent&& other) = delete;
 		TextureComponent& operator=(const TextureComponent& other) = delete;

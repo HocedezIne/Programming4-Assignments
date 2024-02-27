@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneManager.h"
 
-namespace dae
+namespace engine
 {
 	class GameObject;
 	class Scene final
@@ -14,6 +14,7 @@ namespace dae
 
 		void Update(const float deltaTime);
 		void Render() const;
+		void ProcessDeletion();
 
 		~Scene();
 		Scene(const Scene& other) = delete;

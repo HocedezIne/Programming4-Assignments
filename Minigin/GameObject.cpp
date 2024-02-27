@@ -4,9 +4,9 @@
 #include "Renderer.h"
 #include "Component.h"
 
-dae::GameObject::~GameObject() = default;
+engine::GameObject::~GameObject() = default;
 
-void dae::GameObject::Update(const float deltaTime)
+void engine::GameObject::Update(const float deltaTime)
 {
 	for (const auto& comp: m_Components)
 	{
@@ -17,7 +17,7 @@ void dae::GameObject::Update(const float deltaTime)
 	}
 }
 
-void dae::GameObject::Render() const
+void engine::GameObject::Render() const
 {
 	for (const auto& comp : m_Components)
 	{
@@ -25,5 +25,15 @@ void dae::GameObject::Render() const
 		{
 			rcomp->Render();
 		}
+	}
+}
+
+void engine::GameObject::ProcessDeletion()
+{
+	auto it = m_Components.begin();
+	while (it != m_Components.end())
+	{
+		if ((*it)->IsMarkedForDeletion()) it = m_Components.erase(std::remove(m_Components.begin(), m_Components.end(), (*it)), m_Components.end());
+		else ++it;
 	}
 }

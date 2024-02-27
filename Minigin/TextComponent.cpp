@@ -5,13 +5,13 @@
 #include "Font.h"
 #include "TextureComponent.h"
 
-dae::TextComponent::TextComponent(std::shared_ptr<GameObject> pOwner, const std::string& text, std::shared_ptr<Font> font)
+engine::TextComponent::TextComponent(std::shared_ptr<GameObject> pOwner, const std::string& text, std::shared_ptr<Font> font)
 	: Component(pOwner), m_needsUpdate(true), m_text(text), m_font(std::move(font))
 {
 	Component::DependencyCheck<TextureComponent>(this);
 }
 
-void dae::TextComponent::Update(const float deltaTime)
+void engine::TextComponent::Update(const float deltaTime)
 {
 	deltaTime;
 
@@ -35,7 +35,7 @@ void dae::TextComponent::Update(const float deltaTime)
 }
 
 // This implementation uses the "dirty flag" pattern
-void dae::TextComponent::SetText(const std::string& text)
+void engine::TextComponent::SetText(const std::string& text)
 {
 	m_text = text;
 	m_needsUpdate = true;

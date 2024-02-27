@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <sstream>
 
-void dae::FPSComponent::Update(const float deltaTime)
+void engine::FPSComponent::Update(const float deltaTime)
 {
 	++m_FrameCount;
 	m_TotalTime += deltaTime;
@@ -17,7 +17,7 @@ void dae::FPSComponent::Update(const float deltaTime)
 	}
 }
 
-dae::FPSComponent::FPSComponent(std::shared_ptr<GameObject> pOwner) : Component(pOwner)
+engine::FPSComponent::FPSComponent(std::shared_ptr<GameObject> pOwner) : Component(pOwner)
 {
 	Component::DependencyCheck<TextComponent>(this);
 }

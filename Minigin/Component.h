@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include <stdexcept>
 
-namespace dae {
+namespace engine {
 	// ------------------------------------------------
 	// Exception class
 	// ------------------------------------------------
@@ -13,8 +13,10 @@ namespace dae {
 
 	class Component {
 	public:
-		Component(std::weak_ptr<GameObject> pOwner) { m_pOwner = pOwner; };
 		virtual ~Component() = default;
+
+		void MarkDeletion() { m_DeleteFlag = true; };
+		bool IsMarkedForDeletion() const { return m_DeleteFlag; };
 
 		Component(const Component& other) = delete;
 		Component(Component&& other) = delete;
@@ -22,6 +24,8 @@ namespace dae {
 		Component& operator=(Component&& other) = delete;
 
 	protected:
+		Component(std::weak_ptr<GameObject> pOwner) { m_pOwner = pOwner; };
+
 		template<typename Target, typename Caller>
 		void DependencyCheck(Caller)
 		{
@@ -36,6 +40,9 @@ namespace dae {
 
 
 		std::weak_ptr<GameObject> m_pOwner;
+
+	private:
+		bool m_DeleteFlag{ false };
 	};
 
 	// ------------------------------------------------

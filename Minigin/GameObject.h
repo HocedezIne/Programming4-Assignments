@@ -2,15 +2,19 @@
 #include <memory>
 #include <vector>
 
-namespace dae
+namespace engine
 {
 	class Component;
 
 	class GameObject final
 	{
 	public:
-		virtual void Update(const float deltaTime);
-		virtual void Render() const;
+		void Update(const float deltaTime);
+		void Render() const;
+
+		void MarkDeletion() { m_DeleteFlag = true; };
+		bool IsMarkedForDeletion() const { return m_DeleteFlag; };
+		void ProcessDeletion();
 
 		template<typename T>
 		void AddComponent(std::shared_ptr<T> comp)
@@ -22,7 +26,7 @@ namespace dae
 		template<typename T>
 		void RemoveComponent(std::shared_ptr<T> comp) 
 		{
-			m_Components.erase(std::remove(m_Components.begin(), m_Components.end(), comp), m_Components.end());
+			comp->MarkDeletion();
 		};
 
 		template<typename T>
@@ -50,7 +54,7 @@ namespace dae
 		};
 
 		GameObject() = default;
-		virtual ~GameObject();
+		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
@@ -58,5 +62,7 @@ namespace dae
 
 	private:
 		std::vector<std::shared_ptr<Component>> m_Components;
+
+		bool m_DeleteFlag{ false };
 	};
 }
