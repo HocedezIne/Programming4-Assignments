@@ -1,16 +1,7 @@
 #pragma once
 #include "GameObject.h"
-#include <stdexcept>
 
 namespace engine {
-	// ------------------------------------------------
-	// Exception class
-	// ------------------------------------------------
-	class MissingComponentDependency : public std::runtime_error {
-	public:
-		MissingComponentDependency(const std::string& msg) : std::runtime_error(msg) {};
-	};
-
 	class Component {
 	public:
 		virtual ~Component() = default;
@@ -24,24 +15,12 @@ namespace engine {
 		Component& operator=(Component&& other) = delete;
 
 	protected:
-		Component(std::weak_ptr<GameObject> pOwner) { m_pOwner = pOwner; };
+		Component(std::weak_ptr<GameObject> pOwner) : m_pOwner(pOwner) {};
 
-		template<typename Target, typename Caller>
-		void DependencyCheck(Caller)
-		{
-			if (!m_pOwner.lock()->HasComponent<Target>())
-			{
-				std::string msg{ typeid(Caller).name() };
-				msg += " cannot be added on GameObjects without a ";
-				msg += typeid(Target).name();
-				throw MissingComponentDependency( msg );
-			}
-		}
-
-
-		std::weak_ptr<GameObject> m_pOwner;
+		std::weak_ptr<GameObject> GetOwner() const { return m_pOwner; };
 
 	private:
+		const std::weak_ptr<GameObject> m_pOwner;
 		bool m_DeleteFlag{ false };
 	};
 
