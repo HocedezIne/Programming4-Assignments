@@ -2,13 +2,21 @@
 #include <SDL_ttf.h>
 #include "TextComponent.h"
 #include "Renderer.h"
+#include "ResourceManager.h"
 #include "Font.h"
 #include "TextureComponent.h"
 
 engine::TextComponent::TextComponent(std::shared_ptr<GameObject> pOwner, const std::string& text, std::shared_ptr<Font> font)
-	: Component(pOwner), m_needsUpdate(true), m_text(text), m_font(std::move(font))
+	: Component(pOwner), m_needsUpdate(true), m_text(text)
 {
-	Component::DependencyCheck<TextureComponent>(this);
+	if (!pOwner->HasComponent<TextureComponent>())
+	{
+		pOwner->AddComponent<TextureComponent>(std::make_shared<TextureComponent>(pOwner));
+	}
+	m_TextureComp = pOwner->GetComponent<TextureComponent>().get();
+
+	if (font != nullptr) m_font = std::move(font);
+	else m_font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 }
 
 void engine::TextComponent::Update(const float deltaTime)
@@ -29,7 +37,7 @@ void engine::TextComponent::Update(const float deltaTime)
 			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 		}
 		SDL_FreeSurface(surf);
-		m_pOwner.lock()->GetComponent<TextureComponent>()->SetTexture(std::make_shared<Texture2D>(texture));
+		m_TextureComp->SetTexture(std::make_shared<Texture2D>(texture));
 		m_needsUpdate = false;
 	}
 }
@@ -37,6 +45,6 @@ void engine::TextComponent::Update(const float deltaTime)
 // This implementation uses the "dirty flag" pattern
 void engine::TextComponent::SetText(const std::string& text)
 {
-	m_text = text;
+	if(m_text != text) m_text = text;
 	m_needsUpdate = true;
 }

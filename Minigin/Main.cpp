@@ -23,8 +23,6 @@ void load()
 {
 	auto& scene = engine::SceneManager::GetInstance().CreateScene("Demo");
 
-	try
-	{
 	auto go = std::make_shared<engine::GameObject>();
 	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go));
 	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "background.tga"));
@@ -49,7 +47,6 @@ void load()
 	go->AddComponent<engine::FPSComponent>(std::make_shared<engine::FPSComponent>(go));
 	scene.Add(go);
 
-
 	// Testing other GameObject functions
 	//if (go->HasComponent<engine::FPSComponent>())
 	//{
@@ -59,12 +56,6 @@ void load()
 	//		go->RemoveComponent<engine::FPSComponent>(tc);
 	//	}
 	//}
-
-	}
-	catch (const engine::MissingComponentDependency& ex)
-	{
-		std::cerr << ex.what() << std::endl;
-	}
 }
 
 int main(int, char*[]) {

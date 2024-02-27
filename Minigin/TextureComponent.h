@@ -24,6 +24,7 @@ namespace engine
 
 	private:
 		std::shared_ptr<Texture2D> m_Texture;
+		TransformComponent* m_TransformComp;
 	};
 }
 

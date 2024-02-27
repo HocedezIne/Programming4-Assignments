@@ -19,5 +19,7 @@ namespace engine
 	private:
 		int m_FrameCount{};
 		float m_TotalTime{};
+
+		TextComponent* m_TextComp;
 	};
 }
