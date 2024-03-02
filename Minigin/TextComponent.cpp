@@ -6,7 +6,7 @@
 #include "Font.h"
 #include "TextureComponent.h"
 
-engine::TextComponent::TextComponent(std::shared_ptr<GameObject> pOwner, const std::string& text, std::shared_ptr<Font> font)
+engine::TextComponent::TextComponent(GameObject* pOwner, const std::string& text, std::shared_ptr<Font> font)
 	: Component(pOwner), m_needsUpdate(true), m_text(text)
 {
 	if (!pOwner->HasComponent<TextureComponent>())

@@ -9,7 +9,7 @@ namespace engine
 	public:
 		void Update(const float deltaTime) override;
 
-		FPSComponent(std::shared_ptr<GameObject> pOwner);
+		FPSComponent(GameObject* pOwner);
 		~FPSComponent() = default;
 		FPSComponent(const FPSComponent& other) = delete;
 		FPSComponent(FPSComponent&& other) = delete;

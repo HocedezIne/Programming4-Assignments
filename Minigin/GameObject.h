@@ -1,10 +1,12 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <glm/glm.hpp>
 
 namespace engine
 {
 	class Component;
+	class TransformComponent;
 
 	class GameObject final
 	{
@@ -15,6 +17,11 @@ namespace engine
 		void MarkDeletion() { m_DeleteFlag = true; };
 		bool IsMarkedForDeletion() const { return m_DeleteFlag; };
 		void ProcessDeletion();
+
+		//void SetParent(GameObject* parent, bool keepWorldPosition);
+
+		void SetLocalPosition(const glm::vec3 pos);
+		glm::vec3 GetWorldPosition() const;
 
 		template<typename T>
 		void AddComponent(std::shared_ptr<T> comp)
@@ -53,7 +60,8 @@ namespace engine
 			return it != m_Components.end();
 		};
 
-		GameObject() = default;
+		GameObject();
+
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -61,8 +69,17 @@ namespace engine
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
+		//void AddChild(GameObject* child) { m_Children.push_back(child); };
+		//void RemoveChild(GameObject* child) { m_Children.erase(std::remove(m_Children.begin(), m_Children.end(), (child)), m_Children.end()); };
+
+		void SetPositionDirty();
+
 		std::vector<std::shared_ptr<Component>> m_Components;
+		GameObject* m_Parent{ nullptr };
+		std::vector<GameObject*> m_Children{};
+		TransformComponent* m_Transform;
 
 		bool m_DeleteFlag{ false };
+		bool m_PositionFlag{ false };
 	};
 }

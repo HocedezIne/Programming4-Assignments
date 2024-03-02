@@ -15,7 +15,7 @@ namespace engine
 
 		void SetText(const std::string& text);
 
-		TextComponent(std::shared_ptr<GameObject> pOwner, const std::string& text, std::shared_ptr<Font> font = nullptr);
+		TextComponent(GameObject* pOwner, const std::string& text, std::shared_ptr<Font> font = nullptr);
 		virtual ~TextComponent() = default;
 		TextComponent(const TextComponent& other) = delete;
 		TextComponent(TextComponent&& other) = delete;

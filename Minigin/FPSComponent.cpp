@@ -17,7 +17,7 @@ void engine::FPSComponent::Update(const float deltaTime)
 	}
 }
 
-engine::FPSComponent::FPSComponent(std::shared_ptr<GameObject> pOwner) : Component(pOwner)
+engine::FPSComponent::FPSComponent(GameObject* pOwner) : Component(pOwner)
 {
 	if (!pOwner->HasComponent<TextComponent>())
 	{
