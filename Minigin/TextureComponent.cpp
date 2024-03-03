@@ -22,7 +22,7 @@ void engine::TextureComponent::SetTexture(std::shared_ptr<Texture2D> texture)
 	m_Texture = texture;
 }
 
-engine::TextureComponent::TextureComponent(GameObject* pOwner, const std::string& fileName) : Component(pOwner)
+engine::TextureComponent::TextureComponent(std::shared_ptr<GameObject> pOwner, const std::string& fileName) : Component(pOwner)
 {
 	if (!pOwner->HasComponent<TransformComponent>())
 	{

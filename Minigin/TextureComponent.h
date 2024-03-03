@@ -15,7 +15,7 @@ namespace engine
 		void SetTexture(const std::string& fileName);
 		void SetTexture(std::shared_ptr<Texture2D> texture);
 
-		TextureComponent(GameObject* pOwner, const std::string& fileName = {});
+		TextureComponent(std::shared_ptr<GameObject> pOwner, const std::string& fileName = {});
 		~TextureComponent() = default;
 		TextureComponent(const TextureComponent& other) = delete;
 		TextureComponent(TextureComponent&& other) = delete;

@@ -1,6 +1,6 @@
 #include "TransformComponent.h"
 
-engine::TransformComponent::TransformComponent(GameObject* pOwner, float x, float y, float z) : Component(pOwner)
+engine::TransformComponent::TransformComponent(std::shared_ptr<GameObject>  pOwner, float x, float y, float z) : Component(pOwner)
 {
 	SetPosition(x, y, z);
 }

@@ -15,12 +15,12 @@ namespace engine {
 		Component& operator=(Component&& other) = delete;
 
 	protected:
-		Component(GameObject* pOwner) : m_pOwner(pOwner) {};
+		Component(std::weak_ptr<GameObject> pOwner) : m_pOwner(pOwner) {};
 
-		const GameObject* GetOwner() const { return m_pOwner; };
+		std::weak_ptr<GameObject> GetOwner() const { return m_pOwner; };
 
 	private:
-		const GameObject* m_pOwner;
+		const std::weak_ptr<GameObject> m_pOwner;
 		bool m_DeleteFlag{ false };
 	};
 

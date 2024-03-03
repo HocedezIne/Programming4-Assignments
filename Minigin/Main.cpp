@@ -25,36 +25,36 @@ void load()
 	auto& scene = engine::SceneManager::GetInstance().CreateScene("Demo");
 
 	auto go = std::make_shared<engine::GameObject>();
-	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go.get(), "background.tga"));
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "background.tga"));
 	scene.Add(go);
 
 	go = std::make_shared<engine::GameObject>();
-	go->SetLocalPosition(glm::vec3{ 216.f, 180.f, 0.f });
-	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go.get(), "logo.tga"));
+	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 216.f, 180.f));
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "logo.tga"));
 	scene.Add(go);
 
 	auto font = engine::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	go = std::make_shared<engine::GameObject>();
-	go->SetLocalPosition(glm::vec3{ 80.f, 20.f, 0.f });
-	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go.get()));
-	go->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(go.get(), "Programming 4 Assignment", font));
+	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 80.f, 20.f));
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go));
+	go->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(go, "Programming 4 Assignment", font));
 	scene.Add(go);
 
 	go = std::make_shared<engine::GameObject>();
-	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go.get()));
-	go->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(go.get(), "0 FPS", font));
-	go->AddComponent<engine::FPSComponent>(std::make_shared<engine::FPSComponent>(go.get()));
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go));
+	go->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(go, "0 FPS", font));
+	go->AddComponent<engine::FPSComponent>(std::make_shared<engine::FPSComponent>(go));
 	scene.Add(go);
 
 	go = std::make_shared<engine::GameObject>();
 	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 100.f, 300.f));
-	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "logo.tga"));
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "bomberman.tga"));
 	go->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(go, 25, 5.f));
 	scene.Add(go);
 
 	auto goc = std::make_shared<engine::GameObject>();
 	goc->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goc));
-	goc->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goc, "logo.tga"));
+	goc->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goc, "bomberman.tga"));
 	goc->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(goc, 30, 7.f));
 	goc->SetParent(go.get(), false);
 	scene.Add(goc);

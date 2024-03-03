@@ -7,7 +7,7 @@ namespace engine
 	class TransformComponent final : public Component
 	{
 	public:
-		TransformComponent(GameObject*, float x=0, float y=0, float z=0);
+		TransformComponent(std::shared_ptr<GameObject>, float x=0, float y=0, float z=0);
 		~TransformComponent() = default;
 		TransformComponent(const TransformComponent& other) = delete;
 		TransformComponent(TransformComponent&& other) = delete;

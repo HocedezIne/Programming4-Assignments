@@ -82,7 +82,7 @@ void engine::GameObject::SetParent(GameObject* parent, bool keepWorldPosition)
 		SetPositionDirty();
 	}
 
-	if (m_Parent) m_Parent->RemoveChild(this);
+	if (m_Parent) m_Parent->DetachChild(this);
 	m_Parent = parent;
-	if (m_Parent) m_Parent->AddChild(this);
+	if (m_Parent) m_Parent->AttachChild(this);
 }
