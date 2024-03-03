@@ -10,4 +10,6 @@ void engine::TransformComponent::SetPosition(const float x, const float y, const
 	m_position.x = x;
 	m_position.y = y;
 	m_position.z = z;
+
+	GetOwner().lock()->SetLocalPosition(m_position);
 }
