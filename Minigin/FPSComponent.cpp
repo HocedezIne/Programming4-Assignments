@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <sstream>
 
-void dae::FPSComponent::Update(const float deltaTime)
+void engine::FPSComponent::Update(const float deltaTime)
 {
 	++m_FrameCount;
 	m_TotalTime += deltaTime;
@@ -10,14 +10,18 @@ void dae::FPSComponent::Update(const float deltaTime)
 	{
 		std::ostringstream fpsString;
 		fpsString << std::fixed << std::setprecision(1) << (m_FrameCount / m_TotalTime) << " FPS";
-		m_pOwner.lock()->GetComponent<TextComponent>()->SetText(fpsString.str());
+		m_TextComp->SetText(fpsString.str());
 
 		m_FrameCount = 0;
 		m_TotalTime = 0.f;
 	}
 }
 
-dae::FPSComponent::FPSComponent(std::shared_ptr<GameObject> pOwner) : Component(pOwner)
+engine::FPSComponent::FPSComponent(std::shared_ptr<GameObject> pOwner) : Component(pOwner)
 {
-	Component::DependencyCheck<TextComponent>(this);
+	if (!pOwner->HasComponent<TextComponent>())
+	{
+		pOwner->AddComponent<TextComponent>(std::make_shared<TextComponent>(pOwner, "0 FPS"));
+	}
+	m_TextComp = pOwner->GetComponent<TextComponent>().get();
 }

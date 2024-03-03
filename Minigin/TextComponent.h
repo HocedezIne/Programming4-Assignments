@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 #include <memory>
-#include "TransformComponent.h"
+#include "TextureComponent.h"
 #include "Component.h"
 
-namespace dae
+namespace engine
 {
 	class Font;
 	class Texture2D;
@@ -15,7 +15,7 @@ namespace dae
 
 		void SetText(const std::string& text);
 
-		TextComponent(std::shared_ptr<GameObject> pOwner, const std::string& text, std::shared_ptr<Font> font);
+		TextComponent(std::shared_ptr<GameObject>, const std::string& text, std::shared_ptr<Font> font = nullptr);
 		virtual ~TextComponent() = default;
 		TextComponent(const TextComponent& other) = delete;
 		TextComponent(TextComponent&& other) = delete;
@@ -26,5 +26,7 @@ namespace dae
 		bool m_needsUpdate;
 		std::string m_text;
 		std::shared_ptr<Font> m_font;
+
+		TextureComponent* m_TextureComp;
 	};
 }

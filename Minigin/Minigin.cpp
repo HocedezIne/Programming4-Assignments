@@ -11,6 +11,7 @@
 #include "ResourceManager.h"
 
 #include <chrono>
+#include <thread>
 
 SDL_Window* g_window{};
 
@@ -42,7 +43,7 @@ void PrintSDLVersion()
 		version.major, version.minor, version.patch);
 }
 
-dae::Minigin::Minigin(const std::string &dataPath)
+engine::Minigin::Minigin(const std::string &dataPath)
 {
 	PrintSDLVersion();
 	
@@ -69,7 +70,7 @@ dae::Minigin::Minigin(const std::string &dataPath)
 	ResourceManager::GetInstance().Init(dataPath);
 }
 
-dae::Minigin::~Minigin()
+engine::Minigin::~Minigin()
 {
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(g_window);
@@ -77,7 +78,7 @@ dae::Minigin::~Minigin()
 	SDL_Quit();
 }
 
-void dae::Minigin::Run(const std::function<void()>& load)
+void engine::Minigin::Run(const std::function<void()>& load)
 {
 	load();
 
@@ -97,6 +98,9 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 		doContinue = input.ProcessInput();
 		sceneManager.Update(deltaTime);
+
+		sceneManager.ProcessDeletion();
+
 		renderer.Render();
 
 		const auto sleepTime = (currentTime + std::chrono::milliseconds(static_cast<long long>(targetFrameTime*1000)) - std::chrono::high_resolution_clock::now());

@@ -1,20 +1,13 @@
 #pragma once
 #include "GameObject.h"
-#include <stdexcept>
 
-namespace dae {
-	// ------------------------------------------------
-	// Exception class
-	// ------------------------------------------------
-	class MissingComponentDependency : public std::runtime_error {
-	public:
-		MissingComponentDependency(const std::string& msg) : std::runtime_error(msg) {};
-	};
-
+namespace engine {
 	class Component {
 	public:
-		Component(std::weak_ptr<GameObject> pOwner) { m_pOwner = pOwner; };
 		virtual ~Component() = default;
+
+		void MarkDeletion() { m_DeleteFlag = true; };
+		bool IsMarkedForDeletion() const { return m_DeleteFlag; };
 
 		Component(const Component& other) = delete;
 		Component(Component&& other) = delete;
@@ -22,20 +15,13 @@ namespace dae {
 		Component& operator=(Component&& other) = delete;
 
 	protected:
-		template<typename Target, typename Caller>
-		void DependencyCheck(Caller)
-		{
-			if (!m_pOwner.lock()->HasComponent<Target>())
-			{
-				std::string msg{ typeid(Caller).name() };
-				msg += " cannot be added on GameObjects without a ";
-				msg += typeid(Target).name();
-				throw MissingComponentDependency( msg );
-			}
-		}
+		Component(std::weak_ptr<GameObject> pOwner) : m_pOwner(pOwner) {};
 
+		std::weak_ptr<GameObject> GetOwner() const { return m_pOwner; };
 
-		std::weak_ptr<GameObject> m_pOwner;
+	private:
+		const std::weak_ptr<GameObject> m_pOwner;
+		bool m_DeleteFlag{ false };
 	};
 
 	// ------------------------------------------------
@@ -44,10 +30,12 @@ namespace dae {
 	class IUpdatable {
 	public:
 		virtual void Update(const float deltaTime) = 0;
+		virtual ~IUpdatable() = default;
 	};
 
 	class IRenderable {
 	public:
 		virtual void Render() const = 0;
+		virtual ~IRenderable() = default;
 	};
 }

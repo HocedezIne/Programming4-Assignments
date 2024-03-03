@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-using namespace dae;
+using namespace engine;
 
 unsigned int Scene::m_idCounter = 0;
 
@@ -18,7 +18,7 @@ void Scene::Add(std::shared_ptr<GameObject> object)
 
 void Scene::Remove(std::shared_ptr<GameObject> object)
 {
-	m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), object), m_objects.end());
+	object->MarkDeletion();
 }
 
 void Scene::RemoveAll()
@@ -42,3 +42,16 @@ void Scene::Render() const
 	}
 }
 
+void Scene::ProcessDeletion()
+{
+	auto it = m_objects.begin();
+	while (it != m_objects.end())
+	{
+		if ((*it)->IsMarkedForDeletion()) it = m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), (*it)), m_objects.end());
+		else
+		{
+			(*it)->ProcessDeletion();
+			++it;
+		}
+	}
+}
