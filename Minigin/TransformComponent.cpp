@@ -11,5 +11,9 @@ void engine::TransformComponent::SetPosition(const glm::vec3 pos)
 }
 void engine::TransformComponent::SetPosition(const float x, const float y, const float z)
 {
-	SetPosition(glm::vec3{ x,y,z });
+	m_position.x = x;
+	m_position.y = y;
+	m_position.z = z;
+
+	GetOwner().lock()->SetLocalPosition(m_position);
 }

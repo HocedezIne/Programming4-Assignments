@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include <glm/glm.hpp>
+#include "glm/glm.hpp"
 
 namespace engine
 {
@@ -18,10 +18,12 @@ namespace engine
 		bool IsMarkedForDeletion() const { return m_DeleteFlag; };
 		void ProcessDeletion();
 
-		//void SetParent(GameObject* parent, bool keepWorldPosition);
+		void SetLocalPosition(const glm::vec3 pos) { m_LocalPosition = pos; SetPositionDirty(); };
+		const glm::vec3 GetLocalPosition() const { return m_LocalPosition; };
+		const glm::vec3 GetWorldPosition();
+		void UpdateWorldPosition();
 
-		void SetLocalPosition(const glm::vec3 pos);
-		glm::vec3 GetWorldPosition() const;
+		void SetParent(GameObject* parent, bool keepWorldPosition);
 
 		template<typename T>
 		void AddComponent(std::shared_ptr<T> comp)
@@ -60,8 +62,7 @@ namespace engine
 			return it != m_Components.end();
 		};
 
-		GameObject();
-
+		GameObject(const glm::vec3 = {});
 		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -69,17 +70,21 @@ namespace engine
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
-		//void AddChild(GameObject* child) { m_Children.push_back(child); };
-		//void RemoveChild(GameObject* child) { m_Children.erase(std::remove(m_Children.begin(), m_Children.end(), (child)), m_Children.end()); };
+		void SetPositionDirty() { m_PositionFlag = true; };
 
-		void SetPositionDirty();
+		void AttachChild(GameObject* child) { m_Children.push_back(child); };
+		void DetachChild(GameObject* child) { m_Children.erase(std::remove(m_Children.begin(), m_Children.end(), (child)), m_Children.end()); };
+		bool IsChild(GameObject* obj);
 
 		std::vector<std::shared_ptr<Component>> m_Components;
+		std::vector<GameObject*> m_Children;
+
 		GameObject* m_Parent{ nullptr };
-		std::vector<GameObject*> m_Children{};
-		TransformComponent* m_Transform;
+
+		glm::vec3 m_LocalPosition;
+		glm::vec3 m_WorldPosition;
 
 		bool m_DeleteFlag{ false };
-		bool m_PositionFlag{ false };
+		bool m_PositionFlag{ true };
 	};
 }

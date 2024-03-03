@@ -5,11 +5,9 @@
 #include "Component.h"
 #include "TransformComponent.h"
 
-engine::GameObject::GameObject()
-{
-	AddComponent(std::make_shared<TransformComponent>(this));
-	m_Transform = GetComponent<TransformComponent>().get();
-}
+engine::GameObject::GameObject(const glm::vec3 pos) :
+	m_LocalPosition(pos), m_WorldPosition(m_LocalPosition)
+{}
 
 engine::GameObject::~GameObject() = default;
 
@@ -45,38 +43,46 @@ void engine::GameObject::ProcessDeletion()
 	}
 }
 
-void engine::GameObject::SetLocalPosition(const glm::vec3 pos)
+const glm::vec3 engine::GameObject::GetWorldPosition()
 {
-	m_Transform->SetPosition(pos);
+	if (m_PositionFlag) UpdateWorldPosition();
+
+	return m_WorldPosition;
 }
 
-glm::vec3 engine::GameObject::GetWorldPosition() const
+void engine::GameObject::UpdateWorldPosition()
 {
-	if (m_Parent != nullptr) return m_Parent->GetWorldPosition() + m_Transform->GetPosition();
-	return m_Transform->GetPosition();
-}
-
-//void engine::GameObject::SetParent(GameObject* parent, bool keepWorldPosition)
-//{
-//	if (parent == this || m_Parent == parent) return;
-//
-//	if (parent == nullptr) SetLocalPosition(GetWorldPosition());
-//	else
-//	{
-//		if (keepWorldPosition) SetLocalPosition(GetWorldPosition() - parent->GetWorldPosition());
-//		SetPositionDirty();
-//	}
-//
-//	if (m_Parent) m_Parent->RemoveChild(this);
-//	m_Parent = parent;
-//	if (m_Parent) m_Parent->AddChild(this);
-//}
-
-void engine::GameObject::SetPositionDirty()
-{
-	m_PositionFlag = true;
-	for (auto& child : m_Children)
+	if (m_PositionFlag)
 	{
-		child->SetPositionDirty();
+		if (m_Parent == nullptr) m_WorldPosition = m_LocalPosition;
+		else m_WorldPosition = m_Parent->GetWorldPosition() + m_LocalPosition;
 	}
+
+	m_PositionFlag = false;
+}
+
+bool engine::GameObject::IsChild(GameObject* obj)
+{
+	for (const auto& child : m_Children)
+	{
+		if (obj == child) return true;
+	}
+
+	return false;
+}
+
+void engine::GameObject::SetParent(GameObject* parent, bool keepWorldPosition)
+{
+	if (IsChild(parent) || parent == this || m_Parent == parent) return;
+
+	if (parent == nullptr) SetLocalPosition(GetWorldPosition());
+	else
+	{
+		if (keepWorldPosition) SetLocalPosition(GetWorldPosition() - parent->GetWorldPosition());
+		SetPositionDirty();
+	}
+
+	if (m_Parent) m_Parent->RemoveChild(this);
+	m_Parent = parent;
+	if (m_Parent) m_Parent->AddChild(this);
 }

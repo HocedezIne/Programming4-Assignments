@@ -15,6 +15,7 @@
 #include "TextComponent.h"
 #include "FPSComponent.h"
 #include "TextureComponent.h"
+#include "RotatorComponent.h"
 #include "Scene.h"
 
 #include <iostream>
@@ -45,7 +46,18 @@ void load()
 	go->AddComponent<engine::FPSComponent>(std::make_shared<engine::FPSComponent>(go.get()));
 	scene.Add(go);
 
+	go = std::make_shared<engine::GameObject>();
+	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 100.f, 300.f));
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "logo.tga"));
+	go->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(go, 25, 5.f));
+	scene.Add(go);
 
+	auto goc = std::make_shared<engine::GameObject>();
+	goc->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goc));
+	goc->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goc, "logo.tga"));
+	goc->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(goc, 30, 7.f));
+	goc->SetParent(go.get(), false);
+	scene.Add(goc);
 
 	// Testing other GameObject functions
 	//if (go->HasComponent<engine::FPSComponent>())

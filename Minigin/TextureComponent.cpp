@@ -7,7 +7,7 @@ void engine::TextureComponent::Render() const
 {
 	if (m_Texture != nullptr)
 	{
-		const auto pos = m_TransformComp->GetPosition();
+		const auto pos = GetOwner().lock()->GetWorldPosition();
 		Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
 	}
 }
