@@ -20,8 +20,8 @@ namespace engine {
 		std::weak_ptr<GameObject> GetOwner() const { return m_pOwner; };
 
 	private:
-		const std::weak_ptr<GameObject> m_pOwner;
 		bool m_DeleteFlag{ false };
+		const std::weak_ptr<GameObject> m_pOwner;
 	};
 
 	// ------------------------------------------------

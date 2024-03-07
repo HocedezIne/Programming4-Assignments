@@ -91,11 +91,10 @@ namespace engine
 		std::vector<GameObject*> m_Children;
 
 		GameObject* m_Parent{ nullptr };
-
 		glm::vec3 m_LocalPosition;
 		glm::vec3 m_WorldPosition;
+		bool m_PositionFlag{ true };
 
 		bool m_DeleteFlag{ false };
-		bool m_PositionFlag{ true };
 	};
 }
