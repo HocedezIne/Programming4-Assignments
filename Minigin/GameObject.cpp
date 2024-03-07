@@ -42,6 +42,15 @@ void engine::GameObject::ProcessDeletion()
 	}
 }
 
+void engine::GameObject::SetPositionDirty()
+{
+	m_PositionFlag = true;
+	for (int idx{}; idx < m_Children.size(); ++idx)
+	{
+		m_Children[idx]->SetPositionDirty();
+	}
+}
+
 const glm::vec3 engine::GameObject::GetWorldPosition()
 {
 	if (m_PositionFlag) UpdateWorldPosition();
@@ -65,6 +74,7 @@ bool engine::GameObject::IsChild(GameObject* obj)
 	for (const auto& child : m_Children)
 	{
 		if (obj == child) return true;
+		if (child->IsChild(obj)) return true;
 	}
 
 	return false;
