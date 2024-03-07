@@ -48,16 +48,20 @@ void load()
 
 	go = std::make_shared<engine::GameObject>();
 	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 100.f, 300.f));
-	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "bomberman.tga"));
-	go->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(go, 25, 5.f));
 	scene.Add(go);
 
-	auto goc = std::make_shared<engine::GameObject>();
-	goc->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goc));
-	goc->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goc, "bomberman.tga"));
-	goc->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(goc, 30, 7.f));
-	goc->SetParent(go.get(), false);
-	scene.Add(goc);
+	auto goc1 = std::make_shared<engine::GameObject>();
+	goc1->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goc1, "bomberman.tga"));
+	goc1->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(goc1, 25, 5.f));
+	goc1->SetParent(go.get(), false);
+	scene.Add(goc1);
+
+	auto goc2 = std::make_shared<engine::GameObject>();
+	goc2->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goc2));
+	goc2->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goc2, "bomberman.tga"));
+	goc2->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(goc2, 30, 7.f));
+	goc2->SetParent(goc1.get(), false);
+	scene.Add(goc2);
 
 	// Testing other GameObject functions
 	//if (go->HasComponent<engine::FPSComponent>())

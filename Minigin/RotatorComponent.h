@@ -19,9 +19,9 @@ namespace engine
 	private:
 		TransformComponent* m_TransformComp;
 
-		glm::vec3 m_Center;
 		const int m_Radius;
 		const float m_Speed;
 		float m_Angle{};
+		const float m_MaxAngle{ float(M_PI * 2) };
 	};
 }
