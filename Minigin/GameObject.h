@@ -6,6 +6,8 @@
 namespace engine
 {
 	class Component;
+	class IUpdatable;
+	class IRenderable;
 	class TransformComponent;
 
 	class GameObject final
@@ -29,6 +31,13 @@ namespace engine
 		void AddComponent(std::shared_ptr<T> comp)
 		{
 			static_assert(std::is_base_of<Component, T>::value, "Item must derrive from Component class");
+
+			//if (IUpdatable* ucomp = std::dynamic_pointer_cast<IUpdatable>(comp.get())) m_UpdatableComponents.push_back(ucomp);
+			//if (IRenderable* rcomp = std::dynamic_pointer_cast<IRenderable>(comp.get())) m_RenderableComponents.push_back(std::dynamic_pointer_cast<IRenderable>(rcomp);
+
+			if (auto ucomp = std::dynamic_pointer_cast<IUpdatable>(comp)) m_UpdatableComponents.push_back(ucomp.get());
+			if (auto rcomp = std::dynamic_pointer_cast<IRenderable>(comp)) m_RenderableComponents.push_back(rcomp.get());
+
 			m_Components.push_back(std::move(comp));
 		};
 		
@@ -77,6 +86,8 @@ namespace engine
 		bool IsChild(GameObject* obj);
 
 		std::vector<std::shared_ptr<Component>> m_Components;
+		std::vector<IUpdatable*> m_UpdatableComponents;
+		std::vector<IRenderable*> m_RenderableComponents;
 		std::vector<GameObject*> m_Children;
 
 		GameObject* m_Parent{ nullptr };
