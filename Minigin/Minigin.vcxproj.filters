@@ -74,9 +74,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="CustomImGuiWindows.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imconfig.h">
       <Filter>imgui</Filter>
     </ClInclude>

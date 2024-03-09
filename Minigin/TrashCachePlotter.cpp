@@ -2,7 +2,7 @@
 
 void TrashCache::GenerateIntData(const int sampleSize)
 {
-	std::vector<int>arr(int(pow(2, 20)));
+	std::vector<int>arr(int(pow(2, 23)));
 	std::fill(arr.begin(), arr.end(), 1);
 	int idx{};
 
@@ -39,7 +39,7 @@ void TrashCache::GenerateIntData(const int sampleSize)
 
 void TrashCache::GenerateGOData(const int sampleSize)
 {
-	std::vector<GameObject3D>arr(int(pow(2, 20)));
+	std::vector<GameObject3D>arr(int(pow(2, 22)));
 	std::fill(arr.begin(), arr.end(), GameObject3D());
 	int idx{};
 
@@ -76,7 +76,7 @@ void TrashCache::GenerateGOData(const int sampleSize)
 
 void TrashCache::GenerateGOAltData(const int sampleSize)
 {
-	std::vector<GameObject3DAlt>arr(int(pow(2, 20)));
+	std::vector<GameObject3DAlt>arr(int(pow(2, 22)));
 	std::fill(arr.begin(), arr.end(), GameObject3DAlt());
 	int idx{};
 
@@ -160,7 +160,7 @@ void TrashCache::ShowEx2Window()
 {
 	IM_ASSERT(ImGui::GetCurrentContext() != NULL && "Missing Dear ImGui context. Refer to examples app!");
 
-	if (!ImGui::Begin("Exercise 2")
+	if (!ImGui::Begin("Exercise 2"))
 	{
 		ImGui::End();
 		return;
