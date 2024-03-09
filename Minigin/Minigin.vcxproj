@@ -182,10 +182,12 @@
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imconfig.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imgui.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imgui_internal.h" />
+    <ClInclude Include="..\3rdParty\imgui-1.90.4\imgui_plot.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_rectpack.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_truetype.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CustomImGuiWindows.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="GameObject.h" />
@@ -201,6 +203,7 @@
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureComponent.h" />
     <ClInclude Include="TransformComponent.h" />
+    <ClInclude Include="TrashCachePlotter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\3rdParty\imgui-1.90.4\backends\imgui_impl_opengl3.cpp" />
@@ -208,6 +211,7 @@
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui.cpp" />
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_demo.cpp" />
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_draw.cpp" />
+    <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_plot.cpp" />
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_tables.cpp" />
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_widgets.cpp" />
     <ClCompile Include="Font.cpp" />
@@ -225,6 +229,7 @@
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TextureComponent.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
+    <ClCompile Include="TrashCachePlotter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
