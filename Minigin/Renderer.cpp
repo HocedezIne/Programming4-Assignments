@@ -5,7 +5,6 @@
 #include <imgui.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_sdl2.h>
-#include "TrashCachePlotter.h"
 
 int GetOpenGLDriverIndex()
 {
@@ -43,15 +42,6 @@ void engine::Renderer::Render() const
 	SDL_RenderClear(m_renderer);
 
 	SceneManager::GetInstance().Render();
-
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplSDL2_NewFrame();
-	ImGui::NewFrame();
-	ImGui::ShowDemoWindow();
-	TrashCache::ShowEx1Window();
-	TrashCache::ShowEx2Window();
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	
 	SDL_RenderPresent(m_renderer);
 }

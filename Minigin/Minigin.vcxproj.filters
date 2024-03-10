@@ -101,8 +101,8 @@
     <ClInclude Include="..\3rdParty\imgui-1.90.4\imstb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="TrashCachePlotter.h">
-      <Filter>HelperClasses</Filter>
+    <ClInclude Include="CachePlotComponent.h">
+      <Filter>ComponentClasses\Subclasses</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -175,8 +175,8 @@
     <ClCompile Include="..\3rdParty\imgui-1.90.4\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="TrashCachePlotter.cpp">
-      <Filter>HelperClasses</Filter>
+    <ClCompile Include="CachePlotComponent.cpp">
+      <Filter>ComponentClasses\Subclasses</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
