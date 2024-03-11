@@ -16,6 +16,7 @@
 #include "FPSComponent.h"
 #include "TextureComponent.h"
 #include "RotatorComponent.h"
+#include "CachePlotComponent.h"
 #include "Scene.h"
 
 #include <iostream>
@@ -63,15 +64,9 @@ void load()
 	goc2->SetParent(goc1.get(), false);
 	scene.Add(goc2);
 
-	// Testing other GameObject functions
-	//if (go->HasComponent<engine::FPSComponent>())
-	//{
-	//	auto tc = go->GetComponent<engine::FPSComponent>();
-	//	if (tc)
-	//	{
-	//		go->RemoveComponent<engine::FPSComponent>(tc);
-	//	}
-	//}
+	go = std::make_shared<engine::GameObject>();
+	go->AddComponent<engine::CachePlotComponent>(std::make_shared<engine::CachePlotComponent>(go));
+	scene.Add(go);
 }
 
 int main(int, char*[]) {

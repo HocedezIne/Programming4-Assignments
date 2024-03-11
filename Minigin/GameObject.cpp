@@ -45,7 +45,7 @@ void engine::GameObject::ProcessDeletion()
 void engine::GameObject::SetPositionDirty()
 {
 	m_PositionFlag = true;
-	for (int idx{}; idx < m_Children.size(); ++idx)
+	for (int idx{}; idx < int(m_Children.size()); ++idx)
 	{
 		m_Children[idx]->SetPositionDirty();
 	}
