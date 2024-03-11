@@ -2,15 +2,8 @@
 
 void engine::CachePlotComponent::Render() const
 {
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplSDL2_NewFrame();
-	ImGui::NewFrame();
-
 	RenderWindowEx1();
 	RenderWindowEx2();
-
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void engine::CachePlotComponent::RenderWindowEx1() const
