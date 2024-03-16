@@ -57,9 +57,15 @@ void load()
 	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_D, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{1.f,0.f,0.f}));
 	scene.Add(go);
 
+	engine::InputManager::GetInstance().AddController();
+
 	go = std::make_shared<engine::GameObject>();
 	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 125.f, 200.f));
 	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "bomberman.tga"));
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadUp, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 0.f, -1.f,0.f }), 0);
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadLeft, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ -1.f, 0.f,0.f }), 0);
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadDown, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 0.f, 1.f,0.f }), 0);
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadRight, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 1.f, 0.f,0.f }), 0);
 	scene.Add(go);
 }
 

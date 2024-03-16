@@ -35,6 +35,7 @@ void engine::InputManager::AddKeyboardCommand(SDL_Scancode key, KeyState state, 
 
 void engine::InputManager::ProcessKeyboardState()
 {
+	// updating keyboard state
 	auto keyboardState = SDL_GetKeyboardState(NULL);
 
 	std::vector<Uint8> currentState{ keyboardState, keyboardState + SDL_NUM_SCANCODES };
@@ -50,7 +51,7 @@ void engine::InputManager::ProcessKeyboardState()
 
 	std::copy(currentState.begin(), currentState.end(), m_PrevKeyboardState.begin());
 
-	// button loop
+	// commands loop
 	for (const auto& pair : m_KeyboardCommands)
 	{
 		switch (pair.first.second)
@@ -68,7 +69,48 @@ void engine::InputManager::ProcessKeyboardState()
 	}
 }
 
+void engine::InputManager::AddControllerCommand(Controller::Button button, KeyState state, std::unique_ptr<Command> command, unsigned int controllerId)
+{
+	ControllerButtonState cbs = std::make_pair( std::make_pair(controllerId, button), state);
+	m_ControllerCommands.insert(std::make_pair(cbs, std::move(command)));
+}
+
 void engine::InputManager::ProcessControllerStates()
 {
-	
+	for (int idx{}; idx < m_Controllers.size(); ++idx)
+	{
+		m_Controllers[idx]->PollInput();
+	}
+
+	for (const auto& pair : m_ControllerCommands)
+	{
+		// check if for controller button is in right state
+
+		switch (pair.first.second)
+		{
+		case KeyState::Pressed:
+			if (m_Controllers[pair.first.first.first]->PressedThisFrame(pair.first.first.second))
+			{
+				pair.second->Execute();
+			}
+			break;
+		case KeyState::Released:
+			if (m_Controllers[pair.first.first.first]->ReleasedThisFrame(pair.first.first.second))
+			{
+				pair.second->Execute();
+			}
+			break;
+		case KeyState::Held:
+			if (m_Controllers[pair.first.first.first]->HeldThisFrame(pair.first.first.second))
+			{
+				pair.second->Execute();
+			}
+			break;
+		}
+	}
+}
+
+void engine::InputManager::AddController()
+{
+	m_Controllers.push_back(std::make_unique<Controller>(int(m_Controllers.size())));
 }
