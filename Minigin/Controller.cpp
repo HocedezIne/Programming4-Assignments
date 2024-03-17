@@ -1,4 +1,6 @@
 #include "Controller.h"
+#include <windows.h>
+#include <Xinput.h>
 
 class engine::Controller::Impl
 {

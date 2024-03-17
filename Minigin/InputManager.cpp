@@ -77,7 +77,7 @@ void engine::InputManager::AddControllerCommand(Controller::Button button, KeySt
 
 void engine::InputManager::ProcessControllerStates(const float deltaTime)
 {
-	for (int idx{}; idx < m_Controllers.size(); ++idx)
+	for (int idx{}; idx < int(m_Controllers.size()); ++idx)
 	{
 		m_Controllers[idx]->PollInput();
 	}

@@ -1,7 +1,5 @@
 #pragma once
 #include <memory>
-#include <windows.h>
-#include <Xinput.h>
 
 namespace engine
 {
