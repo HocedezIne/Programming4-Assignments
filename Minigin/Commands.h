@@ -14,7 +14,7 @@ namespace engine
 
 		virtual ~Command() = default;
 
-		virtual void Execute() = 0;
+		virtual void Execute(const float deltaTime) = 0;
 	};
 
 	class GameObjectCommand : public Command
@@ -39,8 +39,8 @@ namespace engine
 	class MoveCommand final : public GameObjectCommand
 	{
 	public:
-		MoveCommand(GameObject* go, glm::vec3 direction) : GameObjectCommand(go),
-		m_Direction(direction) {};
+		MoveCommand(GameObject* go, const glm::vec3 direction,  const float speed) : GameObjectCommand(go),
+		m_Direction(direction), m_Speed(speed) {};
 
 		MoveCommand(const MoveCommand& other) = delete;
 		MoveCommand& operator=(const MoveCommand& other) = delete;
@@ -49,12 +49,13 @@ namespace engine
 
 		virtual ~MoveCommand() = default;
 
-		virtual void Execute() override
+		virtual void Execute(const float deltaTime) override
 		{ 
-			GetGameObject()->SetLocalPosition(GetGameObject()->GetLocalPosition() + m_Direction); 
+			GetGameObject()->SetLocalPosition(GetGameObject()->GetLocalPosition() + (m_Direction * m_Speed * deltaTime)); 
 		};
 
 	private:
 		const glm::vec3 m_Direction;
+		const float m_Speed;
 	};
 }

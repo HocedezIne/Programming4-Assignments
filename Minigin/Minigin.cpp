@@ -96,7 +96,7 @@ void engine::Minigin::Run(const std::function<void()>& load)
 		const float deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
 		previousTime = currentTime;
 
-		doContinue = input.ProcessInput();
+		doContinue = input.ProcessInput(deltaTime);
 		sceneManager.Update(deltaTime);
 
 		sceneManager.ProcessDeletion();

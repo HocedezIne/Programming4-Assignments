@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <functional>
 
-bool engine::InputManager::ProcessInput()
+bool engine::InputManager::ProcessInput(const float deltaTime)
 {
 
 	if (m_PrevKeyboardState.size() == 0)
@@ -22,8 +22,8 @@ bool engine::InputManager::ProcessInput()
 		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
-	ProcessKeyboardState();
-	ProcessControllerStates();
+	ProcessKeyboardState(deltaTime);
+	ProcessControllerStates(deltaTime);
 
 	return true;
 }
@@ -33,7 +33,7 @@ void engine::InputManager::AddKeyboardCommand(SDL_Scancode key, KeyState state, 
 	m_KeyboardCommands.insert(std::make_pair(std::make_pair(key, state), std::move(command)));
 }
 
-void engine::InputManager::ProcessKeyboardState()
+void engine::InputManager::ProcessKeyboardState(const float deltaTime)
 {
 	// updating keyboard state
 	auto keyboardState = SDL_GetKeyboardState(NULL);
@@ -57,13 +57,13 @@ void engine::InputManager::ProcessKeyboardState()
 		switch (pair.first.second)
 		{
 		case KeyState::Pressed:
-			if (pressedKeys[pair.first.first] == 1) pair.second->Execute();
+			if (pressedKeys[pair.first.first] == 1) pair.second->Execute(deltaTime);
 			break;
 		case KeyState::Released:
-			if (releasedKeys[pair.first.first] == 1) pair.second->Execute();
+			if (releasedKeys[pair.first.first] == 1) pair.second->Execute(deltaTime);
 			break;
 		case KeyState::Held:
-			if (currentState[pair.first.first] == 1 && m_PrevKeyboardState[pair.first.first] == 1) pair.second->Execute();
+			if (currentState[pair.first.first] == 1 && m_PrevKeyboardState[pair.first.first] == 1) pair.second->Execute(deltaTime);
 			break;
 		}
 	}
@@ -75,7 +75,7 @@ void engine::InputManager::AddControllerCommand(Controller::Button button, KeySt
 	m_ControllerCommands.insert(std::make_pair(cbs, std::move(command)));
 }
 
-void engine::InputManager::ProcessControllerStates()
+void engine::InputManager::ProcessControllerStates(const float deltaTime)
 {
 	for (int idx{}; idx < m_Controllers.size(); ++idx)
 	{
@@ -91,19 +91,19 @@ void engine::InputManager::ProcessControllerStates()
 		case KeyState::Pressed:
 			if (m_Controllers[pair.first.first.first]->PressedThisFrame(pair.first.first.second))
 			{
-				pair.second->Execute();
+				pair.second->Execute(deltaTime);
 			}
 			break;
 		case KeyState::Released:
 			if (m_Controllers[pair.first.first.first]->ReleasedThisFrame(pair.first.first.second))
 			{
-				pair.second->Execute();
+				pair.second->Execute(deltaTime);
 			}
 			break;
 		case KeyState::Held:
 			if (m_Controllers[pair.first.first.first]->HeldThisFrame(pair.first.first.second))
 			{
-				pair.second->Execute();
+				pair.second->Execute(deltaTime);
 			}
 			break;
 		}

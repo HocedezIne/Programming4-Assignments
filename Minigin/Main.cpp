@@ -50,22 +50,22 @@ void load()
 
 	go = std::make_shared<engine::GameObject>();
 	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 100.f, 200.f));
-	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "bomberman.tga"));
-	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_W, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{0.f,-1.f,0.f}));
-	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_A, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{-1.f,0.f,0.f}));
-	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_S, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{0.f,1.f,0.f}));
-	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_D, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{1.f,0.f,0.f}));
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "bomberman.png"));
+	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_W, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{0.f,-1.f,0.f}, 50.f));
+	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_A, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{-1.f,0.f,0.f}, 50.f));
+	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_S, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{0.f,1.f,0.f}, 50.f));
+	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_D, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{1.f,0.f,0.f}, 50.f));
 	scene.Add(go);
 
 	engine::InputManager::GetInstance().AddController();
 
 	go = std::make_shared<engine::GameObject>();
 	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 125.f, 200.f));
-	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "bomberman.tga"));
-	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadUp, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 0.f, -1.f,0.f }), 0);
-	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadLeft, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ -1.f, 0.f,0.f }), 0);
-	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadDown, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 0.f, 1.f,0.f }), 0);
-	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadRight, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 1.f, 0.f,0.f }), 0);
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "balloom.png"));
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadUp, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 0.f, -2.f,0.f }, 100.f), 0);
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadLeft, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ -2.f, 0.f,0.f }, 100.f), 0);
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadDown, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 0.f, 2.f,0.f }, 100.f), 0);
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadRight, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 2.f, 0.f,0.f }, 100.f), 0);
 	scene.Add(go);
 }
 

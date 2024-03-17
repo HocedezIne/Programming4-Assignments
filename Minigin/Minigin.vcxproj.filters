@@ -27,9 +27,6 @@
     <Filter Include="Input">
       <UniqueIdentifier>{e29b5982-db7c-4087-a130-82d987c48e27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Input\ControllerTypes">
-      <UniqueIdentifier>{66666553-f8bf-45c4-8e5c-bf5b1e53ad58}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -116,9 +113,6 @@
     <ClInclude Include="Controller.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="XInputController.h">
-      <Filter>Input\ControllerTypes</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -195,9 +189,6 @@
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="XInputController.cpp">
-      <Filter>Input\ControllerTypes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@ namespace engine
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
-		bool ProcessInput();
+		bool ProcessInput(const float deltaTime);
 
 		void AddKeyboardCommand(SDL_Scancode key, KeyState state, std::unique_ptr<Command> command);
 		void AddControllerCommand(Controller::Button button, KeyState state, std::unique_ptr<Command> command, unsigned int controllerId = 0);
@@ -25,8 +25,8 @@ namespace engine
 		void AddController();
 
 	private:
-		void ProcessControllerStates();
-		void ProcessKeyboardState();
+		void ProcessControllerStates(const float deltaTime);
+		void ProcessKeyboardState(const float deltaTime);
 
 		using ControllerButtonState = std::pair< std::pair<unsigned int, Controller::Button>, KeyState>;
 		using ControllerCommands = std::map< ControllerButtonState, std::unique_ptr<Command> >;
