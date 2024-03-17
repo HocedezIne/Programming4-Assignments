@@ -24,6 +24,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{d6d24e19-1957-4a5c-ac9c-0b5cc8ead77f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{e29b5982-db7c-4087-a130-82d987c48e27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -34,9 +37,6 @@
     </ClInclude>
     <ClInclude Include="TextureComponent.h">
       <Filter>ComponentClasses\Subclasses</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>ManagerClasses</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>ManagerClasses</Filter>
@@ -104,6 +104,15 @@
     <ClInclude Include="CachePlotComponent.h">
       <Filter>ComponentClasses\Subclasses</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -126,9 +135,6 @@
     </ClCompile>
     <ClCompile Include="TextureComponent.cpp">
       <Filter>ComponentClasses\Subclasses</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>ManagerClasses</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>ManagerClasses</Filter>
@@ -177,6 +183,12 @@
     </ClCompile>
     <ClCompile Include="CachePlotComponent.cpp">
       <Filter>ComponentClasses\Subclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

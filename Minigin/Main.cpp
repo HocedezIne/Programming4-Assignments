@@ -10,6 +10,7 @@
 #include "Minigin.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
 #include "GameObject.h"
 #include "Component.h"
 #include "TextComponent.h"
@@ -48,24 +49,23 @@ void load()
 	scene.Add(go);
 
 	go = std::make_shared<engine::GameObject>();
-	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 100.f, 300.f));
+	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 100.f, 200.f));
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "bomberman.png"));
+	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_W, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{0.f,-1.f,0.f}, 50.f));
+	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_A, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{-1.f,0.f,0.f}, 50.f));
+	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_S, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{0.f,1.f,0.f}, 50.f));
+	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_D, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{1.f,0.f,0.f}, 50.f));
 	scene.Add(go);
 
-	auto goc1 = std::make_shared<engine::GameObject>();
-	goc1->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goc1, "bomberman.tga"));
-	goc1->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(goc1, 25, 5.f));
-	goc1->SetParent(go.get(), false);
-	scene.Add(goc1);
-
-	auto goc2 = std::make_shared<engine::GameObject>();
-	goc2->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goc2));
-	goc2->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goc2, "bomberman.tga"));
-	goc2->AddComponent<engine::RotatorComponent>(std::make_shared<engine::RotatorComponent>(goc2, 30, 7.f));
-	goc2->SetParent(goc1.get(), false);
-	scene.Add(goc2);
+	engine::InputManager::GetInstance().AddController();
 
 	go = std::make_shared<engine::GameObject>();
-	go->AddComponent<engine::CachePlotComponent>(std::make_shared<engine::CachePlotComponent>(go));
+	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 125.f, 200.f));
+	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go, "balloom.png"));
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadUp, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 0.f, -1.f,0.f }, 100.f), 0);
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadLeft, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ -1.f, 0.f,0.f }, 100.f), 0);
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadDown, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 0.f, 1.f,0.f }, 100.f), 0);
+	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadRight, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 1.f, 0.f,0.f }, 100.f), 0);
 	scene.Add(go);
 }
 
