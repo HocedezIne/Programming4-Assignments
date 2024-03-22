@@ -113,6 +113,12 @@
     <ClInclude Include="Controller.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="StatusComponent.h">
+      <Filter>ComponentClasses\Subclasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>HelperClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -189,6 +195,12 @@
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusComponent.cpp">
+      <Filter>ComponentClasses\Subclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>HelperClasses</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

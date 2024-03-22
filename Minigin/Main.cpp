@@ -18,6 +18,7 @@
 #include "TextureComponent.h"
 #include "RotatorComponent.h"
 #include "CachePlotComponent.h"
+#include "StatusComponent.h"
 #include "Scene.h"
 
 #include <iostream>
@@ -55,7 +56,20 @@ void load()
 	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_A, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{-1.f,0.f,0.f}, 50.f));
 	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_S, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{0.f,1.f,0.f}, 50.f));
 	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_D, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{1.f,0.f,0.f}, 50.f));
+	auto sc = std::make_shared<engine::StatusComponent>(go);
+	sc->AddDataMapping("Lives", 3);
+	sc->AddDataMapping("Score", 0);
+	auto cmd = std::make_unique<engine::KillCommand>();
+	cmd->AddObserver(sc.get());
+	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_C, engine::KeyState::Pressed, std::move(cmd));
+	go->AddComponent(sc);
 	scene.Add(go);
+
+	auto goUI = std::make_shared<engine::GameObject>();
+	goUI->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goUI, 0.f, 100.f));
+	goUI->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goUI));
+	goUI->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(goUI, "# lives : 3", font));
+	scene.Add(goUI);
 
 	engine::InputManager::GetInstance().AddController();
 

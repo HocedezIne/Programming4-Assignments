@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Observer.h"
 
 namespace engine
 {
@@ -57,5 +58,26 @@ namespace engine
 	private:
 		const glm::vec3 m_Direction;
 		const float m_Speed;
+	};
+
+	class KillCommand final : public Command, public Subject
+	{
+	public:
+		KillCommand() : Command() {};
+
+		KillCommand(const KillCommand& other) = delete;
+		KillCommand& operator=(const KillCommand& other) = delete;
+		KillCommand(KillCommand&& other) = delete;
+		KillCommand& operator=(KillCommand&& other) = delete;
+
+		virtual ~KillCommand() = default;
+
+		virtual void Execute(const float deltaTime) override
+		{
+			float thee{};
+			thee+=deltaTime;
+
+			NotifyObservers(this, Event::PlayerDied);
+		}
 	};
 }
