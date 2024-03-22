@@ -1,16 +1,20 @@
 #pragma once
 #include <vector>
+#include <any>
 
 enum class Event
 {
-	PlayerDied
+	PlayerDied,
+	UIDataUpdated,
+	IncreaseScore
 };
 
 class Observer
 {
 public: 
 	virtual ~Observer() = default;
-	virtual void OnNotify(void* caller, Event event) = 0;
+
+	virtual void OnNotify(void* caller, Event event, const std::any& args) = 0;
 };
 
 class Subject
@@ -20,7 +24,7 @@ public:
 	void RemoveObserver(Observer* observer);
 
 protected: 
-	void NotifyObservers(void* caller, Event event);
+	void NotifyObservers(void* caller, Event event, const std::any& args);
 
 private:
 	std::vector<Observer*> m_Observers;

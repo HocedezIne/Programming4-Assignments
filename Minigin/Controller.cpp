@@ -19,7 +19,7 @@ public:
 		ZeroMemory(&m_State, sizeof(XINPUT_STATE));
 		XInputGetState(m_Index, & m_State);
 
-		uint8_t buttonChanges = static_cast<uint8_t>(m_State.Gamepad.wButtons ^ m_PrevState.Gamepad.wButtons);
+		uint16_t buttonChanges = static_cast<uint16_t>(m_State.Gamepad.wButtons ^ m_PrevState.Gamepad.wButtons);
 		buttonsPressedThisFrame = buttonChanges & m_State.Gamepad.wButtons;
 		buttonsReleasedThisFrame = buttonChanges & (~m_State.Gamepad.wButtons);
 	};
@@ -34,8 +34,8 @@ private:
 	XINPUT_STATE m_State{};
 	XINPUT_STATE m_PrevState{};
 
-	uint8_t buttonsPressedThisFrame{};
-	uint8_t buttonsReleasedThisFrame{};
+	uint16_t buttonsPressedThisFrame{};
+	uint16_t buttonsReleasedThisFrame{};
 };
 
 engine::Controller::Controller(const unsigned int index)

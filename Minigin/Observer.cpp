@@ -12,10 +12,10 @@ void Subject::RemoveObserver(Observer* observer)
 	if (it != m_Observers.end()) m_Observers.erase(it);
 }
 
-void Subject::NotifyObservers(void* caller, Event event)
+void Subject::NotifyObservers(void* caller, Event event, const std::any& args)
 {
 	for (auto& observer : m_Observers)
 	{
-		observer->OnNotify(caller, event);
+		observer->OnNotify(caller, event, args);
 	}
 }

@@ -20,7 +20,11 @@ int engine::StatusComponent::GetData(const std::string& keyword) const
 void engine::StatusComponent::UpdateData(const std::string& keyword, int value)
 {
 	auto index = m_DataMap.find(keyword);
-	if (index != m_DataMap.end()) index->second = value;
+	if (index != m_DataMap.end())
+	{
+		index->second = value;
+		NotifyObservers(this, Event::UIDataUpdated, std::tuple<>());
+	}
 }
 
 void engine::StatusComponent::RemoveDataMapping(const std::string& keyword)
@@ -28,14 +32,17 @@ void engine::StatusComponent::RemoveDataMapping(const std::string& keyword)
 	m_DataMap.erase(keyword);
 }
 
-void engine::StatusComponent::OnNotify(void* caller, Event event)
+void engine::StatusComponent::OnNotify(void* caller, Event event, const std::any& args)
 {
+	caller; 
+
 	switch (event)
 	{
 	case Event::PlayerDied:
-		caller;
 		UpdateData("Lives", GetData("Lives") - 1);
 		break;
+	case Event::IncreaseScore:
+		UpdateData("Score", GetData("Score") + std::any_cast<int>(args));
 	default:
 		break;
 	}

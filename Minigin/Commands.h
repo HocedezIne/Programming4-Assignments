@@ -74,10 +74,32 @@ namespace engine
 
 		virtual void Execute(const float deltaTime) override
 		{
-			float thee{};
-			thee+=deltaTime;
+			deltaTime;
 
-			NotifyObservers(this, Event::PlayerDied);
-		}
+			NotifyObservers(this, Event::PlayerDied, std::tuple<>());
+		};
+	};
+
+	class ScoreCommand final : public Command, public Subject
+	{
+	public:
+		ScoreCommand(int value) : Command(), m_ScoreValue(value) {};
+
+		ScoreCommand(const ScoreCommand& other) = delete;
+		ScoreCommand& operator=(const ScoreCommand& other) = delete;
+		ScoreCommand(ScoreCommand&& other) = delete;
+		ScoreCommand& operator=(ScoreCommand&& other) = delete;
+
+		virtual ~ScoreCommand() = default;
+
+		virtual void Execute(const float deltaTime) override
+		{
+			deltaTime;
+
+			NotifyObservers(this, Event::IncreaseScore, m_ScoreValue);
+		};
+
+	private:
+		const int m_ScoreValue;
 	};
 }

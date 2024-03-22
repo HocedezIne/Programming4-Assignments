@@ -119,6 +119,9 @@
     <ClInclude Include="Observer.h">
       <Filter>HelperClasses</Filter>
     </ClInclude>
+    <ClInclude Include="UILinkingComponent.h">
+      <Filter>ComponentClasses\Subclasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -201,6 +204,9 @@
     </ClCompile>
     <ClCompile Include="Observer.cpp">
       <Filter>HelperClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="UILinkingComponent.cpp">
+      <Filter>ComponentClasses\Subclasses</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

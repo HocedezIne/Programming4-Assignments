@@ -7,7 +7,7 @@
 
 namespace engine 
 {
-	class StatusComponent : public Component, public Observer
+	class StatusComponent : public Component, public Observer, public Subject
 	{
 	public:
 		StatusComponent(std::shared_ptr<GameObject> pOwner);
@@ -22,7 +22,7 @@ namespace engine
 		void UpdateData(const std::string& keyword, int value);
 		void RemoveDataMapping(const std::string& keyword);
 
-		virtual void OnNotify(void* caller, Event event);
+		virtual void OnNotify(void* caller, Event event, const std::any& args) override;
 
 	private:
 		std::map<std::string, int> m_DataMap;
