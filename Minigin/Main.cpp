@@ -24,6 +24,11 @@
 
 #include <iostream>
 
+#pragma warning (push)
+#pragma warning (disable: 4996)
+#include <steam_api.h>
+#pragma warning (pop)
+
 void load()
 {
 	auto& scene = engine::SceneManager::GetInstance().CreateScene("Demo");
@@ -156,7 +161,16 @@ void load()
 }
 
 int main(int, char*[]) {
+	if (!SteamAPI_Init())
+	{
+		std::cerr << "Fatal Error - Seam must be running to play this game (SteamAPI_Init() failed)." << std::endl;
+		return 1;
+	}
+	else std::cout << "Successfully initialized steam." << std::endl;
+
 	engine::Minigin engine("../Data/");
 	engine.Run(load);
+
+	SteamAPI_Shutdown();
     return 0;
 }
