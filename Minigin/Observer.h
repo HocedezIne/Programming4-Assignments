@@ -6,7 +6,8 @@ enum class Event
 {
 	PlayerDied,
 	UIDataUpdated,
-	IncreaseScore
+	IncreaseScore,
+	WinningScore
 };
 
 class Subject;

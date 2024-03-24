@@ -13,6 +13,11 @@
 #include <chrono>
 #include <thread>
 
+#pragma warning (push)
+#pragma warning (disable: 4996)
+#include <steam_api.h>
+#pragma warning (pop)
+
 SDL_Window* g_window{};
 
 void PrintSDLVersion()
@@ -92,6 +97,8 @@ void engine::Minigin::Run(const std::function<void()>& load)
 	bool doContinue = true;
 	while (doContinue)
 	{
+		SteamAPI_RunCallbacks();
+
 		const auto currentTime = std::chrono::high_resolution_clock::now();
 		const float deltaTime = std::chrono::duration<float>(currentTime - previousTime).count();
 		previousTime = currentTime;
