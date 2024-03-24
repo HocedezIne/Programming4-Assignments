@@ -9,21 +9,31 @@ enum class Event
 	IncreaseScore
 };
 
+class Subject;
 class Observer
 {
-public: 
-	virtual ~Observer() = default;
+public:
+	virtual ~Observer();
 
 	virtual void OnNotify(void* caller, Event event, const std::any& args) = 0;
+
+private:
+	friend class Subject;
+	void AddSubject(Subject* subject);
+	void RemoveSubject(Subject* subject);
+
+	std::vector<Subject*> m_Subjects{ nullptr };
 };
 
 class Subject
 {
 public:
+	virtual ~Subject();
+
 	void AddObserver(Observer* observer);
 	void RemoveObserver(Observer* observer);
 
-protected: 
+protected:
 	void NotifyObservers(void* caller, Event event, const std::any& args);
 
 private:
