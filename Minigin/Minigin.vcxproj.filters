@@ -27,6 +27,9 @@
     <Filter Include="Input">
       <UniqueIdentifier>{e29b5982-db7c-4087-a130-82d987c48e27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SteamAchievements">
+      <UniqueIdentifier>{55ead943-e424-4a5a-b05e-36d86bfe597a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -122,6 +125,9 @@
     <ClInclude Include="UILinkingComponent.h">
       <Filter>ComponentClasses\Subclasses</Filter>
     </ClInclude>
+    <ClInclude Include="SteamAchievements.h">
+      <Filter>SteamAchievements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
@@ -207,6 +213,9 @@
     </ClCompile>
     <ClCompile Include="UILinkingComponent.cpp">
       <Filter>ComponentClasses\Subclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="SteamAchievements.cpp">
+      <Filter>SteamAchievements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

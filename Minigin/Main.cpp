@@ -27,7 +27,29 @@
 #pragma warning (push)
 #pragma warning (disable: 4996)
 #include <steam_api.h>
+#include "SteamAchievements.h"
 #pragma warning (pop)
+
+// Defining our achievements
+enum EAchievements
+{
+	ACH_WIN_ONE_GAME = 0,
+	ACH_WIN_100_GAMES = 1,
+	ACH_TRAVEL_FAR_ACCUM = 2,
+	ACH_TRAVEL_FAR_SINGLE = 3,
+};
+
+// Achievement array which will hold data about the achievements and their state
+engine::Achievement_t g_Achievements[] =
+{
+	_ACH_ID(ACH_WIN_ONE_GAME, "Winner"),
+	_ACH_ID(ACH_WIN_100_GAMES, "Champion"),
+	_ACH_ID(ACH_TRAVEL_FAR_ACCUM, "Interstellar"),
+	_ACH_ID(ACH_TRAVEL_FAR_SINGLE, "Orbiter"),
+};
+
+// Global access to Achievements object
+engine::CSteamAchievements* g_SteamAchievements = NULL;
 
 void load()
 {
@@ -106,6 +128,7 @@ void load()
 	scene.Add(goUI);
 
 	sc->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
+	sc->AddObserver(g_SteamAchievements);
 
 	auto scorecmd = std::make_unique<engine::ScoreCommand>(100);
 	scorecmd->AddObserver(sc.get());
@@ -150,6 +173,7 @@ void load()
 	scene.Add(goUI);
 
 	sc->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
+	sc->AddObserver(g_SteamAchievements);
 
 	scorecmd = std::make_unique<engine::ScoreCommand>(100);
 	scorecmd->AddObserver(sc.get());
@@ -166,11 +190,17 @@ int main(int, char*[]) {
 		std::cerr << "Fatal Error - Seam must be running to play this game (SteamAPI_Init() failed)." << std::endl;
 		return 1;
 	}
-	else std::cout << "Successfully initialized steam." << std::endl;
+	else
+	{
+		std::cout << "Successfully initialized steam." << std::endl;
+		g_SteamAchievements = new engine::CSteamAchievements(g_Achievements, 4);
+	}
 
 	engine::Minigin engine("../Data/");
 	engine.Run(load);
 
 	SteamAPI_Shutdown();
+	if (g_SteamAchievements) delete g_SteamAchievements;
+
     return 0;
 }

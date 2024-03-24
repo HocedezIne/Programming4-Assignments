@@ -24,6 +24,8 @@ void engine::StatusComponent::UpdateData(const std::string& keyword, int value)
 	{
 		index->second = value;
 		NotifyObservers(this, Event::UIDataUpdated, std::tuple<>());
+
+		if (keyword == "Score" && index->second >= 500) NotifyObservers(this, Event::WinningScore, std::tuple<>());
 	}
 }
 
