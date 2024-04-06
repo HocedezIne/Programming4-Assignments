@@ -96,7 +96,7 @@ namespace engine
 		{
 			deltaTime;
 
-			NotifyObservers(this, Event::IncreaseScore, m_ScoreValue);
+			NotifyObservers(this, Event::EnemyDied, m_ScoreValue);
 		};
 
 	private:

@@ -5,8 +5,7 @@
 enum class Event
 {
 	PlayerDied,
-	UIDataUpdated,
-	IncreaseScore
+	EnemyDied
 };
 
 class Subject;
@@ -28,6 +27,7 @@ private:
 class Subject
 {
 public:
+	Subject() = default;
 	virtual ~Subject();
 
 	void AddObserver(Observer* observer);

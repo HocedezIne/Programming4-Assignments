@@ -7,7 +7,7 @@
 
 namespace engine 
 {
-	class StatusComponent : public Component, public Observer, public Subject
+	class StatusComponent : public Component, public Observer
 	{
 	public:
 		StatusComponent(std::shared_ptr<GameObject> pOwner);

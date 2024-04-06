@@ -23,7 +23,6 @@ void engine::StatusComponent::UpdateData(const std::string& keyword, int value)
 	if (index != m_DataMap.end())
 	{
 		index->second = value;
-		NotifyObservers(this, Event::UIDataUpdated, std::tuple<>());
 	}
 }
 
@@ -41,7 +40,7 @@ void engine::StatusComponent::OnNotify(void* caller, Event event, const std::any
 	case Event::PlayerDied:
 		UpdateData("Lives", GetData("Lives") - 1);
 		break;
-	case Event::IncreaseScore:
+	case Event::EnemyDied:
 		UpdateData("Score", GetData("Score") + std::any_cast<int>(args));
 	default:
 		break;

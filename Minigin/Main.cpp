@@ -58,22 +58,26 @@ void load()
 	go = std::make_shared<engine::GameObject>();
 	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 5.f, 75.f));
 	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go));
-	go->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(go, "WASD to move bomberman, C to kill him, X to increase score", font));
+	go->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(go, "WASD to move bomberman, C to kill him, X to kill an enemy", font));
 	scene.Add(go);
 
 	go = std::make_shared<engine::GameObject>();
 	go->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(go, 5.f, 100.f));
 	go->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(go));
-	go->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(go, "DPad to move balloom, X to kill him, B to increase score", font));
+	go->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(go, "DPad to move balloom, X to kill him, B to kill an enemy", font));
 	scene.Add(go);
 #pragma endregion controlInfo
 
 #pragma region playerBomberman
+	auto sc = std::make_shared<engine::StatusComponent>(go);
+	sc->AddDataMapping("Lives", 3);
+	sc->AddDataMapping("Score", 0);
+
 	auto goUI = std::make_shared<engine::GameObject>();
 	goUI->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goUI, 5.f, 135.f));
 	goUI->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goUI));
-	goUI->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(goUI, "Lives: 3", font));
-	goUI->AddComponent<engine::UILinkingComponent>(std::make_shared<engine::UILinkingComponent>(goUI, "Lives"));
+	goUI->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(goUI, "", font));
+	goUI->AddComponent<engine::UILinkingComponent>(std::make_shared<engine::UILinkingComponent>(goUI, "Lives", sc.get()));
 	scene.Add(goUI);
 
 	go = std::make_shared<engine::GameObject>();
@@ -84,26 +88,21 @@ void load()
 	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_S, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{0.f,1.f,0.f}, 50.f));
 	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_D, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{1.f,0.f,0.f}, 50.f));
 
-	auto sc = std::make_shared<engine::StatusComponent>(go);
-	sc->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
-	sc->AddDataMapping("Lives", 3);
-	sc->AddDataMapping("Score", 0);
-
 	auto killcmd = std::make_unique<engine::KillCommand>();
 	killcmd->AddObserver(sc.get());
+	killcmd->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
 	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_C, engine::KeyState::Pressed, std::move(killcmd));
 
 	goUI = std::make_shared<engine::GameObject>();
 	goUI->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goUI, 5.f, 160.f));
 	goUI->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goUI));
-	goUI->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(goUI, "Score: 0", font));
-	goUI->AddComponent<engine::UILinkingComponent>(std::make_shared<engine::UILinkingComponent>(goUI, "Score"));
+	goUI->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(goUI, "", font));
+	goUI->AddComponent<engine::UILinkingComponent>(std::make_shared<engine::UILinkingComponent>(goUI, "Score", sc.get()));
 	scene.Add(goUI);
 
-	sc->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
-
 	auto scorecmd = std::make_unique<engine::ScoreCommand>(100);
-	scorecmd->AddObserver(sc.get());
+	scorecmd->AddObserver(sc.get());	
+	scorecmd->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
 	engine::InputManager::GetInstance().AddKeyboardCommand(SDL_SCANCODE_X, engine::KeyState::Pressed, std::move(scorecmd));
 
 	go->AddComponent(sc);
@@ -113,11 +112,15 @@ void load()
 #pragma region playerBalloom
 	engine::InputManager::GetInstance().AddController();
 
+	sc = std::make_shared<engine::StatusComponent>(go);
+	sc->AddDataMapping("Lives", 3);
+	sc->AddDataMapping("Score", 0);
+
 	goUI = std::make_shared<engine::GameObject>();
 	goUI->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goUI, 5.f, 185.f));
 	goUI->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goUI));
-	goUI->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(goUI, "Lives: 3", font));
-	goUI->AddComponent<engine::UILinkingComponent>(std::make_shared<engine::UILinkingComponent>(goUI, "Lives"));
+	goUI->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(goUI, "", font));
+	goUI->AddComponent<engine::UILinkingComponent>(std::make_shared<engine::UILinkingComponent>(goUI, "Lives", sc.get()));
 	scene.Add(goUI);
 
 	go = std::make_shared<engine::GameObject>();
@@ -127,27 +130,22 @@ void load()
 	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadLeft, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ -1.f, 0.f,0.f }, 100.f), 0);
 	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadDown, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 0.f, 1.f,0.f }, 100.f), 0);
 	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::DPadRight, engine::KeyState::Held, std::make_unique<engine::MoveCommand>(go.get(), glm::vec3{ 1.f, 0.f,0.f }, 100.f), 0);
-	
-	sc = std::make_shared<engine::StatusComponent>(go);
-	sc->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
-	sc->AddDataMapping("Lives", 3);
-	sc->AddDataMapping("Score", 0);
 
 	killcmd = std::make_unique<engine::KillCommand>();
 	killcmd->AddObserver(sc.get());
+	killcmd->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
 	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::X, engine::KeyState::Pressed, std::move(killcmd));
 
 	goUI = std::make_shared<engine::GameObject>();
 	goUI->AddComponent<engine::TransformComponent>(std::make_shared<engine::TransformComponent>(goUI, 5.f, 210.f));
 	goUI->AddComponent<engine::TextureComponent>(std::make_shared<engine::TextureComponent>(goUI));
-	goUI->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(goUI, "Score: 0", font));
-	goUI->AddComponent<engine::UILinkingComponent>(std::make_shared<engine::UILinkingComponent>(goUI, "Score"));
+	goUI->AddComponent<engine::TextComponent>(std::make_shared<engine::TextComponent>(goUI, "", font));
+	goUI->AddComponent<engine::UILinkingComponent>(std::make_shared<engine::UILinkingComponent>(goUI, "Score", sc.get()));
 	scene.Add(goUI);
-
-	sc->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
 
 	scorecmd = std::make_unique<engine::ScoreCommand>(100);
 	scorecmd->AddObserver(sc.get());
+	scorecmd->AddObserver(goUI->GetComponent<engine::UILinkingComponent>().get());
 	engine::InputManager::GetInstance().AddControllerCommand(engine::Controller::Button::B, engine::KeyState::Pressed, std::move(scorecmd));
 
 	go->AddComponent(sc);
